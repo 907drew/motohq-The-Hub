@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>MotoHQ — The Hub</title>
+
+  <style>
+    :root {
+      --bg: #080808;
+      --panel: #121212;
+      --panel2: #181818;
+      --orange: #ff5a00;
+      --orange2: #ff7a00;
+      --blue: #3578ff;
+      --green: #35d36b;
+      --yellow: #ffca28;
+      --red: #ff4d4d;
+      --text: #f4f4f4;
+      --muted: #9d9d9d;
+      --line: #2b2b2b;
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(255,90,0,.12), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 92px;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      max-width: 720px;
+      margin: auto;
+    }
+
+    .header {
+      padding: 20px 18px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      line-height: .9;
+    }
+
+    .brand-main {
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -1px;
+      font-size: 30px;
+    }
+
+    .brand-main .moto {
+      color: var(--orange);
+    }
+
+    .brand-main .hq {
+      color: var(--blue);
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 4px;
+      margin-top: 7px;
+    }
+
+    .gear {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: white;
+      border-radius: 50%;
+      font-size: 21px;
+    }
+
+    .page {
+      display: none;
+      padding: 8px 16px 24px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .hero {
+      min-height: 235px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #252525;
+      background:
+        linear-gradient(to top, rgba(0,0,0,.93), rgba(0,0,0,.1)),
+        linear-gradient(130deg, #111 0%, #2e190c 45%, #0d1d32 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .hero::before {
+      content: "🏁";
+      position: absolute;
+      right: 15px;
+      top: 12px;
+      font-size: 86px;
+      opacity: .08;
+      transform: rotate(-8deg);
+    }
+
+    .hero-bike {
+      position: absolute;
+      right: 18px;
+      bottom: 42px;
+      font-size: 95px;
+      filter: drop-shadow(0 15px 18px #000);
+      opacity: .95;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      max-width: 68%;
+    }
+
+    .eyebrow {
+      color: var(--orange);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 5px 0 4px;
+      font-size: 29px;
+      line-height: 1.05;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #c6c6c6;
+      font-size: 14px;
+    }
+
+    .section-title {
+      color: #bcbcbc;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      margin: 22px 3px 11px;
+    }
+
+    .event-card {
+      background: linear-gradient(145deg, #141414, #0e0e0e);
+      border: 1px solid #3a261b;
+      border-radius: var(--radius);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      box-shadow: inset 3px 0 0 var(--orange);
+    }
+
+    .event-card h2 {
+      margin: 3px 0 5px;
+      font-size: 23px;
+    }
+
+    .event-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .date-box {
+      text-align: center;
+      min-width: 63px;
+    }
+
+    .date-box span {
+      display: block;
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .date-box .month {
+      font-size: 13px;
+    }
+
+    .date-box .day {
+      font-size: 36px;
+      line-height: .95;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .status-card {
+      position: relative;
+      min-height: 175px;
+      padding: 14px;
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 80% 55%, rgba(255,90,0,.16), transparent 38%),
+        var(--panel);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .status-card.blue {
+      background:
+        radial-gradient(circle at 80% 55%, rgba(53,120,255,.16), transparent 38%),
+        var(--panel);
+    }
+
+    .status-card h3 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .status-card .bike-type {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .machine-icon {
+      font-size: 56px;
+      text-align: center;
+      margin: 18px 0 10px;
+      filter: drop-shadow(0 9px 8px #000);
+    }
+
+    .ready {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    .ready::before {
+      content: "●";
+      margin-right: 6px;
+    }
+
+    .wide-card {
+      margin-top: 12px;
+      min-height: 130px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(120deg, rgba(53,120,255,.08), rgba(255,90,0,.08)),
+        var(--panel);
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wide-card .rv {
+      position: absolute;
+      right: 18px;
+      bottom: 12px;
+      font-size: 67px;
+    }
+
+    .wide-card h3 {
+      color: var(--blue);
+      margin: 0 0 3px;
+    }
+
+    .wide-card p {
+      color: var(--muted);
+      margin: 0 0 24px;
+      font-size: 12px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+    }
+
+    .quick {
+      min-height: 96px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: white;
+      padding: 10px 5px;
+    }
+
+    .quick .icon {
+      display: block;
+      color: var(--orange);
+      font-size: 27px;
+      margin-bottom: 9px;
+    }
+
+    .quick .label {
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .page-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 6px 2px 10px;
+    }
+
+    .page-heading h1 {
+      color: var(--orange);
+      font-size: 29px;
+      margin: 0;
+    }
+
+    .add-btn {
+      background: none;
+      color: var(--orange);
+      border: 0;
+      font-size: 36px;
+      line-height: 1;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      padding: 12px 0;
+      color: #888;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tab.active {
+      color: white;
+      border-bottom: 3px solid var(--orange);
+    }
+
+    .bike-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 16px;
+      background:
+        radial-gradient(circle at 75% 35%, rgba(255,90,0,.13), transparent 35%),
+        linear-gradient(145deg, #161616, #0d0d0d);
+      margin-bottom: 14px;
+    }
+
+    .bike-card.reba {
+      background:
+        radial-gradient(circle at 75% 35%, rgba(53,120,255,.12), transparent 35%),
+        linear-gradient(145deg, #161616, #0d0d0d);
+    }
+
+    .bike-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .bike-name {
+      font-size: 25px;
+      font-weight: 900;
+      color: var(--orange);
+    }
+
+    .reba .bike-name {
+      color: var(--blue);
+    }
+
+    .bike-model {
+      color: #c4c4c4;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .bike-year {
+      color: var(--orange2);
+      font-weight: 700;
+      margin-top: 3px;
+      font-size: 12px;
+    }
+
+    .bike-picture {
+      font-size: 76px;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 8px;
+      background: #143c21;
+      color: #8cffaa;
+      padding: 6px 9px;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .bike-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 13px 0;
+      margin-top: 11px;
+    }
+
+    .stat {
+      text-align: center;
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:last-child {
+      border: 0;
+    }
+
+    .stat .big {
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .stat .small {
+      font-size: 9px;
+      color: var(--muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .bike-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      padding-top: 12px;
+    }
+
+    .bike-action {
+      border: 0;
+      background: transparent;
+      color: white;
+      text-align: center;
+      padding: 7px 2px;
+    }
+
+    .bike-action span {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .bike-action small {
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .placeholder {
+      padding: 28px 16px;
+      border: 1px dashed #3c3c3c;
+      border-radius: 20px;
+      background: var(--panel);
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .placeholder .big {
+      font-size: 45px;
+      margin-bottom: 8px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,.97);
+      border-top: 1px solid #292929;
+      padding:
+        8px
+        max(8px, env(safe-area-inset-right))
+        calc(8px + env(safe-area-inset-bottom))
+        max(8px, env(safe-area-inset-left));
+      z-index: 99;
+    }
+
+    .bottom-inner {
+      max-width: 720px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+
+    .nav-btn {
+      border: 0;
+      background: transparent;
+      color: #777;
+      border-radius: 12px;
+      min-height: 57px;
+      padding: 5px 2px;
+    }
+
+    .nav-btn.active {
+      color: var(--orange);
+      background: rgba(255,90,0,.08);
+    }
+
+    .nav-btn .nav-icon {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .nav-btn .nav-label {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 390px) {
+      .quick-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-bike {
+        font-size: 78px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <div class="brand">
+      <div class="brand-main">
+        <span class="moto">MOTO</span><span class="hq">HQ</span>
+      </div>
+      <div class="brand-sub">THE HUB</div>
+    </div>
+
+    <button class="gear">⚙</button>
+  </header>
+
+
+  <!-- HUB -->
+  <main id="hub" class="page active">
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Midpack Syndicate</div>
+        <h1>Ride something.</h1>
+        <p>Track. Dirt. Trails. MotoHQ. Repeat.</p>
+      </div>
+      <div class="hero-bike">🏍️</div>
+    </section>
+
+    <section class="event-card">
+      <div>
+        <div class="eyebrow">Next Trackday</div>
+        <h2>Hallett</h2>
+        <p>September 12 • Daisy • MotoHQ</p>
+      </div>
+
+      <div class="date-box">
+        <span class="month">SEP</span>
+        <span class="day">12</span>
+      </div>
+    </section>
+
+    <div class="section-title">At a glance</div>
+
+    <section class="grid">
+      <div class="status-card">
+        <h3 style="color:var(--orange)">DAISY</h3>
+        <div class="bike-type">2024 KTM 990 DUKE</div>
+        <div class="machine-icon">🏍️</div>
+        <div class="ready">READY</div>
+      </div>
+
+      <div class="status-card blue">
+        <h3 style="color:var(--blue)">REBA</h3>
+        <div class="bike-type">2025 KTM 500 EXC-F</div>
+        <div class="machine-icon">🏍️</div>
+        <div class="ready">READY</div>
+      </div>
+    </section>
+
+    <section class="wide-card">
+      <h3>MOTOHQ</h3>
+      <p>2003 Forest River Trackhouse</p>
+      <div class="ready">READY</div>
+      <div class="rv">🏕️</div>
+    </section>
+
+    <div class="section-title">Quick actions</div>
+
+    <section class="quick-grid">
+      <button class="quick">
+        <span class="icon">🔧</span>
+        <span class="label">MAINTENANCE</span>
+      </button>
+
+      <button class="quick">
+        <span class="icon">🛒</span>
+        <span class="label">PARTS & SHOPPING</span>
+      </button>
+
+      <button class="quick">
+        <span class="icon">🏁</span>
+        <span class="label">TRACKDAY PLANNER</span>
+      </button>
+
+      <button class="quick">
+        <span class="icon">✅</span>
+        <span class="label">CHECKLISTS</span>
+      </button>
+    </section>
+
+  </main>
+
+
+  <!-- BIKES -->
+  <main id="bikes" class="page">
+
+    <div class="page-heading">
+      <h1>BIKES</h1>
+      <button class="add-btn">+</button>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">ALL BIKES</div>
+      <div class="tab">MAINTENANCE</div>
+      <div class="tab">MODS</div>
+      <div class="tab">TIRES</div>
+    </div>
+
+    <!-- DAISY -->
+    <article class="bike-card">
+      <div class="bike-top">
+
+        <div>
+          <div class="bike-name">DAISY</div>
+          <div class="bike-model">KTM 990 DUKE</div>
+          <div class="bike-year">2024 • TRACK ONLY</div>
+        </div>
+
+        <div>
+          <div class="pill">READY</div>
+          <div class="bike-picture">🏍️</div>
+        </div>
+
+      </div>
+
+      <div class="bike-stats">
+        <div class="stat">
+          <div class="big">1 / 3</div>
+          <div class="small">Trackdays on oil</div>
+        </div>
+
+        <div class="stat">
+          <div class="big">1:38</div>
+          <div class="small">Hallett best</div>
+        </div>
+
+        <div class="stat">
+          <div class="big">S22</div>
+          <div class="small">Current tire</div>
+        </div>
+      </div>
+
+      <div class="bike-actions">
+        <button class="bike-action">
+          <span>🔧</span>
+          <small>Maintenance</small>
+        </button>
+
+        <button class="bike-action">
+          <span>⚙️</span>
+          <small>Mods</small>
+        </button>
+
+        <button class="bike-action">
+          <span>🛞</span>
+          <small>Tires</small>
+        </button>
+
+        <button class="bike-action">
+          <span>📈</span>
+          <small>Lap Times</small>
+        </button>
+      </div>
+    </article>
+
+
+    <!-- REBA -->
+    <article class="bike-card reba">
+      <div class="bike-top">
+
+        <div>
+          <div class="bike-name">REBA</div>
+          <div class="bike-model">KTM 500 EXC-F</div>
+          <div class="bike-year" style="color:var(--blue)">2025 • TRAIL / DUAL SPORT</div>
+        </div>
+
+        <div>
+          <div class="pill">READY</div>
+          <div class="bike-picture">🏍️</div>
+        </div>
+
+      </div>
+
+      <div class="bike-stats">
+        <div class="stat">
+          <div class="big">~20 mi</div>
+          <div class="small">Since oil change</div>
+        </div>
+
+        <div class="stat">
+          <div class="big">110mm</div>
+          <div class="small">Sag target</div>
+        </div>
+
+        <div class="stat">
+          <div class="big">DOT</div>
+          <div class="small">Trail setup</div>
+        </div>
+      </div>
+
+      <div class="bike-actions">
+        <button class="bike-action">
+          <span>🔧</span>
+          <small>Maintenance</small>
+        </button>
+
+        <button class="bike-action">
+          <span>⚙️</span>
+          <small>Mods</small>
+        </button>
+
+        <button class="bike-action">
+          <span>🛞</span>
+          <small>Tires</small>
+        </button>
+
+        <button class="bike-action">
+          <span>🌲</span>
+          <small>Ride Log</small>
+        </button>
+      </div>
+    </article>
+
+
+    <!-- SUE -->
+    <article class="bike-card">
+      <div class="bike-top">
+
+        <div>
+          <div class="bike-name">SUE</div>
+          <div class="bike-model">TREK FUEL EX</div>
+          <div class="bike-year">MOUNTAIN BIKE</div>
+        </div>
+
+        <div>
+          <div class="pill">READY</div>
+          <div class="bike-picture">🚵</div>
+        </div>
+
+      </div>
+
+      <div class="bike-stats">
+        <div class="stat">
+          <div class="big">NEW</div>
+          <div class="small">Tires</div>
+        </div>
+
+        <div class="stat">
+          <div class="big">OZ</div>
+          <div class="small">Next park</div>
+        </div>
+
+        <div class="stat">
+          <div class="big">TBD</div>
+          <div class="small">Sag setup</div>
+        </div>
+      </div>
+
+      <div class="bike-actions">
+        <button class="bike-action">
+          <span>🔧</span>
+          <small>Maintenance</small>
+        </button>
+
+        <button class="bike-action">
+          <span>⚙️</span>
+          <small>Setup</small>
+        </button>
+
+        <button class="bike-action">
+          <span>🛞</span>
+          <small>Tires</small>
+        </button>
+
+        <button class="bike-action">
+          <span>🚵</span>
+          <small>Ride Log</small>
+        </button>
+      </div>
+    </article>
+
+  </main>
+
+
+  <!-- MOTOHQ -->
+  <main id="motohq" class="page">
+
+    <div class="page-heading">
+      <h1>MOTOHQ</h1>
+    </div>
+
+    <section class="hero" style="min-height:190px">
+      <div class="hero-copy">
+        <div class="eyebrow">Trackhouse</div>
+        <h1>The garage goes with us.</h1>
+        <p>2003 Forest River • 30A • Two axles</p>
+      </div>
+      <div class="hero-bike">🏕️</div>
+    </section>
+
+    <div class="section-title">Current status</div>
+
+    <div class="wide-card">
+      <h3 style="color:var(--green)">READY</h3>
+      <p>Systems mostly good. Generator test due soon.</p>
+      <div style="font-size:48px;position:absolute;right:20px;bottom:22px">⚡</div>
+    </div>
+
+    <div class="section-title">Projects</div>
+
+    <div class="placeholder">
+      <div class="big">🛠️</div>
+      Drill press • Rabaconda • 30A extension • camp setup
+    </div>
+
+  </main>
+
+
+  <!-- TRACKDAYS -->
+  <main id="trackdays" class="page">
+
+    <div class="page-heading">
+      <h1>TRACKDAYS</h1>
+    </div>
+
+    <section class="event-card">
+      <div>
+        <div class="eyebrow">Next</div>
+        <h2>Hallett</h2>
+        <p>Sept 12 • Daisy • MotoHQ</p>
+      </div>
+
+      <div class="date-box">
+        <span class="month">SEP</span>
+        <span class="day">12</span>
+      </div>
+    </section>
+
+    <div class="section-title">Coming up</div>
+
+    <div class="placeholder">
+      <div class="big">🏁</div>
+      Future trackday calendar, camping info, packing status, weather and setup notes will live here.
+    </div>
+
+  </main>
+
+
+  <!-- MORE -->
+  <main id="more" class="page">
+
+    <div class="page-heading">
+      <h1>MORE</h1>
+    </div>
+
+    <div class="placeholder">
+      <div class="big">🤘</div>
+      Lap times, documents, manuals, GPX rides, parts, shopping, SMX trips and whatever other motorcycle bullshit we invent.
+    </div>
+
+  </main>
+
+</div>
+
+
+<nav class="bottom-nav">
+  <div class="bottom-inner">
+
+    <button class="nav-btn active" data-page="hub">
+      <span class="nav-icon">⌂</span>
+      <span class="nav-label">Hub</span>
+    </button>
+
+    <button class="nav-btn" data-page="bikes">
+      <span class="nav-icon">🏍️</span>
+      <span class="nav-label">Bikes</span>
+    </button>
+
+    <button class="nav-btn" data-page="motohq">
+      <span class="nav-icon">🏕️</span>
+      <span class="nav-label">MotoHQ</span>
+    </button>
+
+    <button class="nav-btn" data-page="trackdays">
+      <span class="nav-icon">🏁</span>
+      <span class="nav-label">Trackdays</span>
+    </button>
+
+    <button class="nav-btn" data-page="more">
+      <span class="nav-icon">•••</span>
+      <span class="nav-label">More</span>
+    </button>
+
+  </div>
+</nav>
+
+
+<script>
+  const navButtons = document.querySelectorAll(".nav-btn");
+  const pages = document.querySelectorAll(".page");
+
+  navButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+      navButtons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      const pageId = button.dataset.page;
+
+      pages.forEach(page => {
+        page.classList.remove("active");
+      });
+
+      document.getElementById(pageId).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
