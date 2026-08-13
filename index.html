@@ -1,987 +1,2858 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0a0a" />
-  <title>MotoHQ — The Hub</title>
-
-  <style>
-    :root {
-      --bg: #080808;
-      --panel: #121212;
-      --panel2: #181818;
-      --orange: #ff5a00;
-      --orange2: #ff7a00;
-      --blue: #3578ff;
-      --green: #35d36b;
-      --yellow: #ffca28;
-      --red: #ff4d4d;
-      --text: #f4f4f4;
-      --muted: #9d9d9d;
-      --line: #2b2b2b;
-      --radius: 18px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top, rgba(255,90,0,.12), transparent 28%),
-        var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      min-height: 100vh;
-      padding-bottom: 92px;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .app {
-      max-width: 720px;
-      margin: auto;
-    }
-
-    .header {
-      padding: 20px 18px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      line-height: .9;
-    }
-
-    .brand-main {
-      font-weight: 900;
-      font-style: italic;
-      letter-spacing: -1px;
-      font-size: 30px;
-    }
-
-    .brand-main .moto {
-      color: var(--orange);
-    }
-
-    .brand-main .hq {
-      color: var(--blue);
-    }
-
-    .brand-sub {
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: 4px;
-      margin-top: 7px;
-    }
-
-    .gear {
-      width: 42px;
-      height: 42px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: white;
-      border-radius: 50%;
-      font-size: 21px;
-    }
-
-    .page {
-      display: none;
-      padding: 8px 16px 24px;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .hero {
-      min-height: 235px;
-      border-radius: 24px;
-      overflow: hidden;
-      position: relative;
-      border: 1px solid #252525;
-      background:
-        linear-gradient(to top, rgba(0,0,0,.93), rgba(0,0,0,.1)),
-        linear-gradient(130deg, #111 0%, #2e190c 45%, #0d1d32 100%);
-      display: flex;
-      align-items: flex-end;
-      padding: 18px;
-      margin-bottom: 16px;
-    }
-
-    .hero::before {
-      content: "🏁";
-      position: absolute;
-      right: 15px;
-      top: 12px;
-      font-size: 86px;
-      opacity: .08;
-      transform: rotate(-8deg);
-    }
-
-    .hero-bike {
-      position: absolute;
-      right: 18px;
-      bottom: 42px;
-      font-size: 95px;
-      filter: drop-shadow(0 15px 18px #000);
-      opacity: .95;
-    }
-
-    .hero-copy {
-      position: relative;
-      z-index: 2;
-      max-width: 68%;
-    }
-
-    .eyebrow {
-      color: var(--orange);
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      margin: 5px 0 4px;
-      font-size: 29px;
-      line-height: 1.05;
-    }
-
-    .hero p {
-      margin: 0;
-      color: #c6c6c6;
-      font-size: 14px;
-    }
-
-    .section-title {
-      color: #bcbcbc;
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: 1.3px;
-      text-transform: uppercase;
-      margin: 22px 3px 11px;
-    }
-
-    .event-card {
-      background: linear-gradient(145deg, #141414, #0e0e0e);
-      border: 1px solid #3a261b;
-      border-radius: var(--radius);
-      padding: 16px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      box-shadow: inset 3px 0 0 var(--orange);
-    }
-
-    .event-card h2 {
-      margin: 3px 0 5px;
-      font-size: 23px;
-    }
-
-    .event-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .date-box {
-      text-align: center;
-      min-width: 63px;
-    }
-
-    .date-box span {
-      display: block;
-      color: var(--orange);
-      font-weight: 900;
-    }
-
-    .date-box .month {
-      font-size: 13px;
-    }
-
-    .date-box .day {
-      font-size: 36px;
-      line-height: .95;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .status-card {
-      position: relative;
-      min-height: 175px;
-      padding: 14px;
-      border-radius: var(--radius);
-      background:
-        radial-gradient(circle at 80% 55%, rgba(255,90,0,.16), transparent 38%),
-        var(--panel);
-      border: 1px solid var(--line);
-      overflow: hidden;
-    }
-
-    .status-card.blue {
-      background:
-        radial-gradient(circle at 80% 55%, rgba(53,120,255,.16), transparent 38%),
-        var(--panel);
-    }
-
-    .status-card h3 {
-      margin: 0;
-      font-size: 19px;
-    }
-
-    .status-card .bike-type {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 3px;
-    }
-
-    .machine-icon {
-      font-size: 56px;
-      text-align: center;
-      margin: 18px 0 10px;
-      filter: drop-shadow(0 9px 8px #000);
-    }
-
-    .ready {
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--green);
-    }
-
-    .ready::before {
-      content: "●";
-      margin-right: 6px;
-    }
-
-    .wide-card {
-      margin-top: 12px;
-      min-height: 130px;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(120deg, rgba(53,120,255,.08), rgba(255,90,0,.08)),
-        var(--panel);
-      padding: 15px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .wide-card .rv {
-      position: absolute;
-      right: 18px;
-      bottom: 12px;
-      font-size: 67px;
-    }
-
-    .wide-card h3 {
-      color: var(--blue);
-      margin: 0 0 3px;
-    }
-
-    .wide-card p {
-      color: var(--muted);
-      margin: 0 0 24px;
-      font-size: 12px;
-    }
-
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 9px;
-    }
-
-    .quick {
-      min-height: 96px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      color: white;
-      padding: 10px 5px;
-    }
-
-    .quick .icon {
-      display: block;
-      color: var(--orange);
-      font-size: 27px;
-      margin-bottom: 9px;
-    }
-
-    .quick .label {
-      font-size: 10px;
-      font-weight: 800;
-      line-height: 1.15;
-    }
-
-    .page-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 6px 2px 10px;
-    }
-
-    .page-heading h1 {
-      color: var(--orange);
-      font-size: 29px;
-      margin: 0;
-    }
-
-    .add-btn {
-      background: none;
-      color: var(--orange);
-      border: 0;
-      font-size: 36px;
-      line-height: 1;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 18px;
-      overflow-x: auto;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 14px;
-    }
-
-    .tab {
-      padding: 12px 0;
-      color: #888;
-      white-space: nowrap;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .tab.active {
-      color: white;
-      border-bottom: 3px solid var(--orange);
-    }
-
-    .bike-card {
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 16px;
-      background:
-        radial-gradient(circle at 75% 35%, rgba(255,90,0,.13), transparent 35%),
-        linear-gradient(145deg, #161616, #0d0d0d);
-      margin-bottom: 14px;
-    }
-
-    .bike-card.reba {
-      background:
-        radial-gradient(circle at 75% 35%, rgba(53,120,255,.12), transparent 35%),
-        linear-gradient(145deg, #161616, #0d0d0d);
-    }
-
-    .bike-top {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-    }
-
-    .bike-name {
-      font-size: 25px;
-      font-weight: 900;
-      color: var(--orange);
-    }
-
-    .reba .bike-name {
-      color: var(--blue);
-    }
-
-    .bike-model {
-      color: #c4c4c4;
-      font-size: 13px;
-      margin-top: 2px;
-    }
-
-    .bike-year {
-      color: var(--orange2);
-      font-weight: 700;
-      margin-top: 3px;
-      font-size: 12px;
-    }
-
-    .bike-picture {
-      font-size: 76px;
-      line-height: 1;
-      margin-top: 4px;
-    }
-
-    .pill {
-      display: inline-block;
-      border-radius: 8px;
-      background: #143c21;
-      color: #8cffaa;
-      padding: 6px 9px;
-      font-size: 11px;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-
-    .bike-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 5px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding: 13px 0;
-      margin-top: 11px;
-    }
-
-    .stat {
-      text-align: center;
-      border-right: 1px solid var(--line);
-    }
-
-    .stat:last-child {
-      border: 0;
-    }
-
-    .stat .big {
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .stat .small {
-      font-size: 9px;
-      color: var(--muted);
-      margin-top: 4px;
-      text-transform: uppercase;
-    }
-
-    .bike-actions {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 5px;
-      padding-top: 12px;
-    }
-
-    .bike-action {
-      border: 0;
-      background: transparent;
-      color: white;
-      text-align: center;
-      padding: 7px 2px;
-    }
-
-    .bike-action span {
-      display: block;
-      font-size: 24px;
-      margin-bottom: 5px;
-    }
-
-    .bike-action small {
-      font-size: 9px;
-      color: var(--muted);
-      text-transform: uppercase;
-      font-weight: bold;
-    }
-
-    .placeholder {
-      padding: 28px 16px;
-      border: 1px dashed #3c3c3c;
-      border-radius: 20px;
-      background: var(--panel);
-      color: var(--muted);
-      text-align: center;
-      margin-top: 12px;
-    }
-
-    .placeholder .big {
-      font-size: 45px;
-      margin-bottom: 8px;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(10,10,10,.97);
-      border-top: 1px solid #292929;
-      padding:
-        8px
-        max(8px, env(safe-area-inset-right))
-        calc(8px + env(safe-area-inset-bottom))
-        max(8px, env(safe-area-inset-left));
-      z-index: 99;
-    }
-
-    .bottom-inner {
-      max-width: 720px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 4px;
-    }
-
-    .nav-btn {
-      border: 0;
-      background: transparent;
-      color: #777;
-      border-radius: 12px;
-      min-height: 57px;
-      padding: 5px 2px;
-    }
-
-    .nav-btn.active {
-      color: var(--orange);
-      background: rgba(255,90,0,.08);
-    }
-
-    .nav-btn .nav-icon {
-      display: block;
-      font-size: 22px;
-      margin-bottom: 4px;
-    }
-
-    .nav-btn .nav-label {
-      font-size: 9px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 390px) {
-      .quick-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .hero-bike {
-        font-size: 78px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#070707">
+<title>MotoHQ — The Hub v0.4</title>
+
+<style>
+:root{
+  --bg:#070707;
+  --panel:#111;
+  --orange:#ff5a00;
+  --blue:#2478ff;
+  --purple:#a34bff;
+  --green:#35d36b;
+  --yellow:#ffc928;
+  --red:#ff4d4d;
+  --text:#f5f5f5;
+  --muted:#929292;
+  --line:#2a2a2a;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at top,rgba(255,90,0,.09),transparent 26%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  padding-bottom:96px;
+}
+
+button,input,select,textarea{font:inherit}
+button{-webkit-tap-highlight-color:transparent}
+
+.app{
+  max-width:760px;
+  margin:auto;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 16px 10px;
+}
+
+.logo{
+  font-size:30px;
+  font-weight:900;
+  font-style:italic;
+}
+
+.moto{color:var(--orange)}
+.hq{color:var(--blue)}
+
+.logo-sub{
+  font-size:10px;
+  color:#888;
+  letter-spacing:4px;
+  margin-top:4px;
+}
+
+.header-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:#fff;
+  font-size:19px;
+}
+
+.page{
+  display:none;
+  padding:6px 15px 30px;
+}
+
+.page.active{display:block}
+
+.hero{
+  min-height:200px;
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid #252525;
+  background:
+    linear-gradient(to top,rgba(0,0,0,.92),rgba(0,0,0,.15)),
+    linear-gradient(140deg,#101010,#31190d,#0d1830);
+  padding:18px;
+  display:flex;
+  align-items:flex-end;
+}
+
+.hero:after{
+  content:"🏁";
+  position:absolute;
+  right:18px;
+  top:12px;
+  font-size:95px;
+  opacity:.07;
+}
+
+.hero .eyebrow{
+  color:var(--orange);
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:1.4px;
+}
+
+.hero h1{
+  margin:5px 0;
+  font-size:29px;
+}
+
+.hero p{
+  margin:0;
+  color:#aaa;
+  font-size:13px;
+}
+
+.section-title{
+  color:#aaa;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  margin:22px 3px 10px;
+}
+
+.event-card{
+  margin-top:14px;
+  background:linear-gradient(145deg,#151515,#0e0e0e);
+  border:1px solid #39271c;
+  box-shadow:inset 3px 0 var(--orange);
+  border-radius:18px;
+  padding:15px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  cursor:pointer;
+}
+
+.event-card h2{
+  margin:3px 0;
+  font-size:22px;
+}
+
+.event-card p{
+  color:var(--muted);
+  font-size:12px;
+  margin:0;
+}
+
+.date{
+  text-align:center;
+  color:var(--orange);
+  font-weight:900;
+}
+
+.date .month{font-size:11px}
+.date .day{font-size:34px}
+
+.bike-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.bike-hero{
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  min-height:250px;
+  border:1px solid var(--line);
+  background:#111;
+  cursor:pointer;
+}
+
+.bike-hero img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  display:block;
+}
+
+.bike-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.95),transparent 58%);
+}
+
+.bike-info{
+  position:absolute;
+  left:15px;
+  bottom:14px;
+  right:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.bike-name{
+  font-size:24px;
+  font-weight:900;
+}
+
+.daisy-color{color:var(--orange)}
+.reba-color{color:var(--blue)}
+.sue-color{color:var(--purple)}
+
+.bike-model{
+  color:#ccc;
+  font-size:11px;
+  margin-top:2px;
+}
+
+.status{
+  font-size:10px;
+  font-weight:900;
+  color:var(--green);
+}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.quick{
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:#fff;
+  min-height:95px;
+  border-radius:17px;
+  padding:13px;
+  text-align:left;
+}
+
+.quick .icon{
+  display:block;
+  font-size:27px;
+  margin-bottom:9px;
+}
+
+.quick .label{
+  font-size:11px;
+  font-weight:800;
+}
+
+.page-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:4px 2px 12px;
+}
+
+.page-title h1{
+  margin:0;
+  color:var(--orange);
+  font-size:28px;
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.panel h3{
+  margin:0 0 9px;
+  font-size:17px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  gap:10px;
+}
+
+.row:last-child{border-bottom:0}
+
+.row strong{font-size:13px}
+
+.green{color:var(--green)}
+.yellow{color:var(--yellow)}
+.blue{color:var(--blue)}
+.orange{color:var(--orange)}
+.purple{color:var(--purple)}
+
+.bike-detail-hero{
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:15px;
+  position:relative;
+}
+
+.bike-detail-hero img{
+  width:100%;
+  display:block;
+}
+
+.detail-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.86),transparent 55%);
+}
+
+.detail-name{
+  position:absolute;
+  left:15px;
+  bottom:14px;
+}
+
+.detail-name h1{
+  margin:0;
+  font-size:30px;
+}
+
+.detail-name p{
+  margin:3px 0 0;
+  color:#bbb;
+  font-size:11px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.stat{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px 5px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:17px;
+}
+
+.stat small{
+  color:#888;
+  font-size:8px;
+}
+
+.action-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-bottom:15px;
+}
+
+.action{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:15px;
+  color:#fff;
+  padding:12px 3px;
+  text-align:center;
+}
+
+.action .icon{
+  font-size:24px;
+  display:block;
+  margin-bottom:5px;
+}
+
+.action small{
+  font-size:8px;
+  color:#aaa;
+  font-weight:800;
+}
+
+.back{
+  border:0;
+  background:transparent;
+  color:#fff;
+  font-size:27px;
+}
+
+.subhead{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:12px;
+}
+
+.subhead h2{
+  margin:0;
+  color:var(--orange);
+}
+
+.track-card{
+  background:linear-gradient(145deg,#151515,#0e0e0e);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.track-card h3{margin:0 0 4px}
+
+.track-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.tags{
+  margin-top:10px;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.tag{
+  border:1px solid #333;
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:8px;
+  color:#ccc;
+}
+
+/* TODO SYSTEM */
+
+.todo-snapshot{
+  background:linear-gradient(145deg,#141414,#0c0c0c);
+  border:1px solid #3a2a1f;
+  border-radius:20px;
+  padding:14px;
+  box-shadow:inset 3px 0 var(--orange);
+}
+
+.snap-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.snap-head h3{
+  margin:0;
+  font-size:16px;
+}
+
+.snap-count{
+  font-size:9px;
+  color:var(--yellow);
+  font-weight:900;
+}
+
+.todo-item{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:11px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.todo-item:last-child{border-bottom:0}
+
+.todo-dot{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--orange);
+}
+
+.todo-title{
+  font-size:12px;
+  font-weight:800;
+}
+
+.todo-meta{
+  font-size:9px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.todo-badge{
+  font-size:8px;
+  padding:5px 7px;
+  border-radius:999px;
+  background:#1b1b1b;
+  border:1px solid #333;
+}
+
+.todo-section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:20px 2px 9px;
+}
+
+.todo-section-title h3{
+  margin:0;
+  font-size:14px;
+  color:#bbb;
+  text-transform:uppercase;
+}
+
+.add-btn{
+  border:1px solid #47301f;
+  background:rgba(255,90,0,.09);
+  color:var(--orange);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:10px;
+  font-weight:900;
+}
+
+.edit-actions{
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+}
+
+.mini-btn{
+  border:1px solid #333;
+  background:#171717;
+  color:#ccc;
+  border-radius:10px;
+  padding:7px 9px;
+  font-size:9px;
+}
+
+.mini-btn.done{color:var(--green)}
+.mini-btn.delete{color:var(--red)}
+
+.fab{
+  position:fixed;
+  right:18px;
+  bottom:88px;
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:0;
+  background:var(--orange);
+  color:white;
+  font-size:30px;
+  z-index:120;
+  display:none;
+}
+
+.fab.show{display:block}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  z-index:200;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{display:flex}
+
+.sheet{
+  width:min(760px,100%);
+  background:#101010;
+  border:1px solid #303030;
+  border-radius:24px 24px 0 0;
+  padding:18px 16px 25px;
+}
+
+.sheet h2{
+  margin:0 0 14px;
+  color:var(--orange);
+}
+
+.field{
+  margin-bottom:12px;
+}
+
+.field label{
+  display:block;
+  font-size:9px;
+  font-weight:800;
+  color:#aaa;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  background:#181818;
+  color:white;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:12px;
+}
+
+.field textarea{
+  min-height:72px;
+}
+
+.sheet-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.sheet-actions button{
+  border-radius:13px;
+  padding:12px;
+  border:1px solid #333;
+  background:#171717;
+  color:#fff;
+}
+
+.sheet-actions .save{
+  background:var(--orange);
+  border-color:var(--orange);
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(8,8,8,.97);
+  border-top:1px solid #292929;
+  z-index:100;
+}
+
+.bottom-inner{
+  max-width:760px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+}
+
+.nav{
+  background:transparent;
+  color:#777;
+  border:0;
+  min-height:65px;
+}
+
+.nav.active{color:var(--orange)}
+
+.nav span{display:block}
+
+.nav .ico{
+  font-size:20px;
+  margin-bottom:4px;
+}
+
+.nav small{
+  font-size:7.5px;
+  font-weight:800;
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <header class="header">
-    <div class="brand">
-      <div class="brand-main">
-        <span class="moto">MOTO</span><span class="hq">HQ</span>
-      </div>
-      <div class="brand-sub">THE HUB</div>
-    </div>
-
-    <button class="gear">⚙</button>
-  </header>
-
-
-  <!-- HUB -->
-  <main id="hub" class="page active">
-
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="eyebrow">Midpack Syndicate</div>
-        <h1>Ride something.</h1>
-        <p>Track. Dirt. Trails. MotoHQ. Repeat.</p>
-      </div>
-      <div class="hero-bike">🏍️</div>
-    </section>
-
-    <section class="event-card">
-      <div>
-        <div class="eyebrow">Next Trackday</div>
-        <h2>Hallett</h2>
-        <p>September 12 • Daisy • MotoHQ</p>
-      </div>
-
-      <div class="date-box">
-        <span class="month">SEP</span>
-        <span class="day">12</span>
-      </div>
-    </section>
-
-    <div class="section-title">At a glance</div>
-
-    <section class="grid">
-      <div class="status-card">
-        <h3 style="color:var(--orange)">DAISY</h3>
-        <div class="bike-type">2024 KTM 990 DUKE</div>
-        <div class="machine-icon">🏍️</div>
-        <div class="ready">READY</div>
-      </div>
-
-      <div class="status-card blue">
-        <h3 style="color:var(--blue)">REBA</h3>
-        <div class="bike-type">2025 KTM 500 EXC-F</div>
-        <div class="machine-icon">🏍️</div>
-        <div class="ready">READY</div>
-      </div>
-    </section>
-
-    <section class="wide-card">
-      <h3>MOTOHQ</h3>
-      <p>2003 Forest River Trackhouse</p>
-      <div class="ready">READY</div>
-      <div class="rv">🏕️</div>
-    </section>
-
-    <div class="section-title">Quick actions</div>
-
-    <section class="quick-grid">
-      <button class="quick">
-        <span class="icon">🔧</span>
-        <span class="label">MAINTENANCE</span>
-      </button>
-
-      <button class="quick">
-        <span class="icon">🛒</span>
-        <span class="label">PARTS & SHOPPING</span>
-      </button>
-
-      <button class="quick">
-        <span class="icon">🏁</span>
-        <span class="label">TRACKDAY PLANNER</span>
-      </button>
-
-      <button class="quick">
-        <span class="icon">✅</span>
-        <span class="label">CHECKLISTS</span>
-      </button>
-    </section>
-
-  </main>
-
-
-  <!-- BIKES -->
-  <main id="bikes" class="page">
-
-    <div class="page-heading">
-      <h1>BIKES</h1>
-      <button class="add-btn">+</button>
-    </div>
-
-    <div class="tabs">
-      <div class="tab active">ALL BIKES</div>
-      <div class="tab">MAINTENANCE</div>
-      <div class="tab">MODS</div>
-      <div class="tab">TIRES</div>
-    </div>
-
-    <!-- DAISY -->
-    <article class="bike-card">
-      <div class="bike-top">
-
-        <div>
-          <div class="bike-name">DAISY</div>
-          <div class="bike-model">KTM 990 DUKE</div>
-          <div class="bike-year">2024 • TRACK ONLY</div>
-        </div>
-
-        <div>
-          <div class="pill">READY</div>
-          <div class="bike-picture">🏍️</div>
-        </div>
-
-      </div>
-
-      <div class="bike-stats">
-        <div class="stat">
-          <div class="big">1 / 3</div>
-          <div class="small">Trackdays on oil</div>
-        </div>
-
-        <div class="stat">
-          <div class="big">1:38</div>
-          <div class="small">Hallett best</div>
-        </div>
-
-        <div class="stat">
-          <div class="big">S22</div>
-          <div class="small">Current tire</div>
-        </div>
-      </div>
-
-      <div class="bike-actions">
-        <button class="bike-action">
-          <span>🔧</span>
-          <small>Maintenance</small>
-        </button>
-
-        <button class="bike-action">
-          <span>⚙️</span>
-          <small>Mods</small>
-        </button>
-
-        <button class="bike-action">
-          <span>🛞</span>
-          <small>Tires</small>
-        </button>
-
-        <button class="bike-action">
-          <span>📈</span>
-          <small>Lap Times</small>
-        </button>
-      </div>
-    </article>
-
-
-    <!-- REBA -->
-    <article class="bike-card reba">
-      <div class="bike-top">
-
-        <div>
-          <div class="bike-name">REBA</div>
-          <div class="bike-model">KTM 500 EXC-F</div>
-          <div class="bike-year" style="color:var(--blue)">2025 • TRAIL / DUAL SPORT</div>
-        </div>
-
-        <div>
-          <div class="pill">READY</div>
-          <div class="bike-picture">🏍️</div>
-        </div>
-
-      </div>
-
-      <div class="bike-stats">
-        <div class="stat">
-          <div class="big">~20 mi</div>
-          <div class="small">Since oil change</div>
-        </div>
-
-        <div class="stat">
-          <div class="big">110mm</div>
-          <div class="small">Sag target</div>
-        </div>
-
-        <div class="stat">
-          <div class="big">DOT</div>
-          <div class="small">Trail setup</div>
-        </div>
-      </div>
-
-      <div class="bike-actions">
-        <button class="bike-action">
-          <span>🔧</span>
-          <small>Maintenance</small>
-        </button>
-
-        <button class="bike-action">
-          <span>⚙️</span>
-          <small>Mods</small>
-        </button>
-
-        <button class="bike-action">
-          <span>🛞</span>
-          <small>Tires</small>
-        </button>
-
-        <button class="bike-action">
-          <span>🌲</span>
-          <small>Ride Log</small>
-        </button>
-      </div>
-    </article>
-
-
-    <!-- SUE -->
-    <article class="bike-card">
-      <div class="bike-top">
-
-        <div>
-          <div class="bike-name">SUE</div>
-          <div class="bike-model">TREK FUEL EX</div>
-          <div class="bike-year">MOUNTAIN BIKE</div>
-        </div>
-
-        <div>
-          <div class="pill">READY</div>
-          <div class="bike-picture">🚵</div>
-        </div>
-
-      </div>
-
-      <div class="bike-stats">
-        <div class="stat">
-          <div class="big">NEW</div>
-          <div class="small">Tires</div>
-        </div>
-
-        <div class="stat">
-          <div class="big">OZ</div>
-          <div class="small">Next park</div>
-        </div>
-
-        <div class="stat">
-          <div class="big">TBD</div>
-          <div class="small">Sag setup</div>
-        </div>
-      </div>
-
-      <div class="bike-actions">
-        <button class="bike-action">
-          <span>🔧</span>
-          <small>Maintenance</small>
-        </button>
-
-        <button class="bike-action">
-          <span>⚙️</span>
-          <small>Setup</small>
-        </button>
-
-        <button class="bike-action">
-          <span>🛞</span>
-          <small>Tires</small>
-        </button>
-
-        <button class="bike-action">
-          <span>🚵</span>
-          <small>Ride Log</small>
-        </button>
-      </div>
-    </article>
-
-  </main>
-
-
-  <!-- MOTOHQ -->
-  <main id="motohq" class="page">
-
-    <div class="page-heading">
-      <h1>MOTOHQ</h1>
-    </div>
-
-    <section class="hero" style="min-height:190px">
-      <div class="hero-copy">
-        <div class="eyebrow">Trackhouse</div>
-        <h1>The garage goes with us.</h1>
-        <p>2003 Forest River • 30A • Two axles</p>
-      </div>
-      <div class="hero-bike">🏕️</div>
-    </section>
-
-    <div class="section-title">Current status</div>
-
-    <div class="wide-card">
-      <h3 style="color:var(--green)">READY</h3>
-      <p>Systems mostly good. Generator test due soon.</p>
-      <div style="font-size:48px;position:absolute;right:20px;bottom:22px">⚡</div>
-    </div>
-
-    <div class="section-title">Projects</div>
-
-    <div class="placeholder">
-      <div class="big">🛠️</div>
-      Drill press • Rabaconda • 30A extension • camp setup
-    </div>
-
-  </main>
-
-
-  <!-- TRACKDAYS -->
-  <main id="trackdays" class="page">
-
-    <div class="page-heading">
-      <h1>TRACKDAYS</h1>
-    </div>
-
-    <section class="event-card">
-      <div>
-        <div class="eyebrow">Next</div>
-        <h2>Hallett</h2>
-        <p>Sept 12 • Daisy • MotoHQ</p>
-      </div>
-
-      <div class="date-box">
-        <span class="month">SEP</span>
-        <span class="day">12</span>
-      </div>
-    </section>
-
-    <div class="section-title">Coming up</div>
-
-    <div class="placeholder">
-      <div class="big">🏁</div>
-      Future trackday calendar, camping info, packing status, weather and setup notes will live here.
-    </div>
-
-  </main>
-
-
-  <!-- MORE -->
-  <main id="more" class="page">
-
-    <div class="page-heading">
-      <h1>MORE</h1>
-    </div>
-
-    <div class="placeholder">
-      <div class="big">🤘</div>
-      Lap times, documents, manuals, GPX rides, parts, shopping, SMX trips and whatever other motorcycle bullshit we invent.
-    </div>
-
-  </main>
+<header class="header">
+<div>
+<div class="logo">
+<span class="moto">MOTO</span><span class="hq">HQ</span>
+</div>
+<div class="logo-sub">THE HUB</div>
+</div>
+
+<button class="header-btn" onclick="openInfo('Settings')">⚙</button>
+</header>
+
+
+<!-- HOME -->
+
+<main id="hub" class="page active">
+
+<section class="hero">
+<div>
+<div class="eyebrow">MIDPACK SYNDICATE</div>
+<h1>Ride something.</h1>
+<p>Track. Dirt. Trails. MotoHQ. Repeat.</p>
+</div>
+</section>
+
+
+<section class="event-card" onclick="showPage('events')">
+
+<div>
+<div style="color:var(--orange);font-weight:800;font-size:10px">
+NEXT TRACKDAY
+</div>
+
+<h2>Hallett</h2>
+<p>September 12 • Daisy • MotoHQ</p>
+</div>
+
+<div class="date">
+<div class="month">SEP</div>
+<div class="day">12</div>
+</div>
+
+</section>
+
+
+<div class="section-title">The Garage</div>
+
+<div class="bike-grid">
+
+<div class="bike-hero" onclick="openBike('daisy')">
+<img src="images/daisy.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name daisy-color">DAISY</div>
+<div class="bike-model">2024 KTM 990 DUKE • TRACK ONLY</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+
+<div class="bike-hero" onclick="openBike('reba')">
+<img src="images/reba.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name reba-color">REBA</div>
+<div class="bike-model">2025 KTM 500 EXC-F</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+
+<div class="bike-hero" onclick="openBike('sue')">
+<img src="images/sue.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name sue-color">SUE</div>
+<div class="bike-model">2020 TREK FUEL EX 8</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
 
 </div>
 
 
+<div class="section-title">Quick Actions</div>
+
+<div class="quick-grid">
+
+<button class="quick" onclick="openInfo('Maintenance')">
+<span class="icon">🔧</span>
+<span class="label">MAINTENANCE</span>
+</button>
+
+<button class="quick" onclick="openInfo('Shopping')">
+<span class="icon">🛒</span>
+<span class="label">PARTS & SHOPPING</span>
+</button>
+
+<button class="quick" onclick="showPage('events')">
+<span class="icon">🏁</span>
+<span class="label">EVENT PLANNER</span>
+</button>
+
+<button class="quick" onclick="openInfo('Checklists')">
+<span class="icon">✅</span>
+<span class="label">CHECKLISTS</span>
+</button>
+
+</div>
+
+
+<div class="section-title">MotoHQ ToDo</div>
+
+<div class="todo-snapshot" onclick="showPage('todo')">
+
+<div class="snap-head">
+<h3>Good things to do tonight</h3>
+<span id="snapshotCount" class="snap-count"></span>
+</div>
+
+<div id="todoSnapshot"></div>
+
+</div>
+
+</main>
+
+
+<!-- BIKES -->
+
+<main id="bikes" class="page">
+
+<div class="page-title">
+<h1>BIKES</h1>
+</div>
+
+<div class="bike-grid">
+
+<div class="bike-hero" onclick="openBike('daisy')">
+<img src="images/daisy.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name daisy-color">DAISY</div>
+<div class="bike-model">2024 KTM 990 DUKE</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+
+<div class="bike-hero" onclick="openBike('reba')">
+<img src="images/reba.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name reba-color">REBA</div>
+<div class="bike-model">2025 KTM 500 EXC-F</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+
+<div class="bike-hero" onclick="openBike('sue')">
+<img src="images/sue.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name sue-color">SUE</div>
+<div class="bike-model">2020 TREK FUEL EX 8</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+</div>
+
+</main>
+
+
+<!-- MOTOHQ -->
+
+<main id="motohq" class="page">
+
+<div class="page-title">
+<h1>MOTOHQ</h1>
+</div>
+
+<div class="panel">
+
+<h3>2003 Forest River Trackhouse</h3>
+
+<div class="row">
+<strong>Status</strong>
+<span class="green">READY</span>
+</div>
+
+<div class="row">
+<strong>Electrical</strong>
+<span>30A</span>
+</div>
+
+<div class="row">
+<strong>Axles</strong>
+<span>2</span>
+</div>
+
+<div class="row">
+<strong>Generator</strong>
+<span class="yellow">TEST SOON</span>
+</div>
+
+</div>
+
+</main>
+
+
+<!-- EVENTS -->
+
+<main id="events" class="page">
+
+<div class="page-title">
+<h1>EVENTS</h1>
+</div>
+
+<div class="track-card">
+<h3>🏁 Hallett Trackday</h3>
+<p>September 12 • Daisy • MotoHQ</p>
+</div>
+
+<div class="track-card">
+<h3>🏆 SMX Championship</h3>
+<p>September 25–27 • Thunder Ridge</p>
+</div>
+
+<div class="track-card">
+<h3>🚵 OZ Bike Park</h3>
+<p>Fall 2026 • Sue</p>
+</div>
+
+</main>
+
+
+<!-- TODO -->
+
+<main id="todo" class="page">
+
+<div class="page-title">
+
+<h1>MOTOHQ TODO</h1>
+
+<button class="add-btn" onclick="openTodoModal()">
++ ADD
+</button>
+
+</div>
+
+
+<div class="panel">
+
+<p style="margin:0;color:#aaa;font-size:12px">
+
+The answer to:
+<strong style="color:white">
+“I’ve got 20–30 minutes. What can I actually do in MotoHQ right now?”
+</strong>
+
+</p>
+
+</div>
+
+
+<div id="todoPageContent"></div>
+
+</main>
+
+
+<!-- MORE -->
+
+<main id="more" class="page">
+
+<div class="page-title">
+<h1>MORE</h1>
+</div>
+
+<div class="panel">
+
+<div class="row">
+<strong>📈 Lap Times</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>📚 Manuals & Documents</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>🗺 GPX Ride Library</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>📦 Parts Inventory</strong>
+<span>›</span>
+</div>
+
+</div>
+
+</main>
+
+
+<!-- INFO -->
+
+<main id="info" class="page">
+
+<div class="subhead">
+
+<button class="back" onclick="goBack()">←</button>
+
+<h2 id="infoTitle"></h2>
+
+</div>
+
+<div id="infoContent"></div>
+
+</main>
+
+
+<!-- BIKE DETAIL -->
+
+<main id="bikeDetail" class="page">
+
+<div class="subhead">
+
+<button class="back" onclick="showPage('bikes')">←</button>
+
+<h2 id="bikeTitle"></h2>
+
+</div>
+
+
+<div class="bike-detail-hero">
+
+<img id="bikeImage">
+
+<div class="detail-overlay"></div>
+
+<div class="detail-name">
+
+<h1 id="detailName"></h1>
+
+<p id="detailModel"></p>
+
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<strong id="stat1"></strong>
+<small id="stat1label"></small>
+</div>
+
+<div class="stat">
+<strong id="stat2"></strong>
+<small id="stat2label"></small>
+</div>
+
+<div class="stat">
+<strong id="stat3"></strong>
+<small id="stat3label"></small>
+</div>
+
+</div>
+
+
+<div class="action-grid">
+
+<button class="action" onclick="bikeSection('maintenance')">
+<span class="icon">🔧</span>
+<small>MAINTENANCE</small>
+</button>
+
+<button class="action" onclick="bikeSection('mods')">
+<span class="icon">⚙️</span>
+<small>MODS</small>
+</button>
+
+<button class="action" onclick="bikeSection('tires')">
+<span class="icon">🛞</span>
+<small>TIRES</small>
+</button>
+
+<button class="action" onclick="bikeSection('history')">
+<span class="icon">📈</span>
+<small>HISTORY</small>
+</button>
+
+</div>
+
+<div id="bikeContent"></div>
+
+</main>
+
+</div>
+
+
+<!-- ADD TODO BUTTON -->
+
+<button id="todoFab"
+class="fab"
+onclick="openTodoModal()">
++
+</button>
+
+
+<!-- NAVIGATION -->
+
 <nav class="bottom-nav">
-  <div class="bottom-inner">
 
-    <button class="nav-btn active" data-page="hub">
-      <span class="nav-icon">⌂</span>
-      <span class="nav-label">Hub</span>
-    </button>
+<div class="bottom-inner">
 
-    <button class="nav-btn" data-page="bikes">
-      <span class="nav-icon">🏍️</span>
-      <span class="nav-label">Bikes</span>
-    </button>
+<button class="nav active" data-page="hub">
+<span class="ico">⌂</span>
+<small>HUB</small>
+</button>
 
-    <button class="nav-btn" data-page="motohq">
-      <span class="nav-icon">🏕️</span>
-      <span class="nav-label">MotoHQ</span>
-    </button>
+<button class="nav" data-page="bikes">
+<span class="ico">🏍️</span>
+<small>BIKES</small>
+</button>
 
-    <button class="nav-btn" data-page="trackdays">
-      <span class="nav-icon">🏁</span>
-      <span class="nav-label">Trackdays</span>
-    </button>
+<button class="nav" data-page="motohq">
+<span class="ico">🏕️</span>
+<small>MOTOHQ</small>
+</button>
 
-    <button class="nav-btn" data-page="more">
-      <span class="nav-icon">•••</span>
-      <span class="nav-label">More</span>
-    </button>
+<button class="nav" data-page="events">
+<span class="ico">🏁</span>
+<small>EVENTS</small>
+</button>
 
-  </div>
+<button class="nav" data-page="todo">
+<span class="ico">✓</span>
+<small>TODO</small>
+</button>
+
+<button class="nav" data-page="more">
+<span class="ico">•••</span>
+<small>MORE</small>
+</button>
+
+</div>
+
 </nav>
 
 
+<!-- TODO MODAL -->
+
+<div id="todoModal" class="modal">
+
+<div class="sheet">
+
+<h2 id="modalTitle">
+Add MotoHQ ToDo
+</h2>
+
+<input type="hidden" id="editId">
+
+
+<div class="field">
+
+<label>Task</label>
+
+<input id="todoTitleInput"
+placeholder="Move Daisy's bar mounts forward">
+
+</div>
+
+
+<div class="field">
+
+<label>Machine / Area</label>
+
+<select id="todoMachine">
+
+<option>Daisy</option>
+<option>Reba</option>
+<option>Sue</option>
+<option>MotoHQ</option>
+<option>General</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Time</label>
+
+<select id="todoTime">
+
+<option value="10">10 min</option>
+<option value="20">20 min</option>
+<option value="30" selected>30 min</option>
+<option value="60">60 min</option>
+<option value="90">90+ min</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Cost / Parts</label>
+
+<select id="todoCost">
+
+<option value="free">No purchase needed</option>
+<option value="owned">Parts already owned</option>
+<option value="purchase">Purchase needed</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Priority</label>
+
+<select id="todoPriority">
+
+<option value="high">High</option>
+<option value="normal" selected>Normal</option>
+<option value="someday">Someday</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Type</label>
+
+<select id="todoType">
+
+<option>Maintenance</option>
+<option>Mod / Setup</option>
+<option>MotoHQ Project</option>
+<option>Inspection</option>
+<option>Cleanup</option>
+<option>Other</option>
+
+</select>
+
+</div>
+
+
+<div class="field">
+
+<label>Notes</label>
+
+<textarea id="todoNotes"
+placeholder="Optional"></textarea>
+
+</div>
+
+
+<div class="sheet-actions">
+
+<button onclick="closeTodoModal()">
+Cancel
+</button>
+
+<button class="save"
+onclick="saveTodo()">
+Save
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
-  const navButtons = document.querySelectorAll(".nav-btn");
-  const pages = document.querySelectorAll(".page");
 
-  navButtons.forEach(button => {
-    button.addEventListener("click", () => {
+let currentBike="daisy";
+let previousPage="hub";
 
-      navButtons.forEach(btn => btn.classList.remove("active"));
-      button.classList.add("active");
+const pages=document.querySelectorAll(".page");
+const navs=document.querySelectorAll(".nav");
 
-      const pageId = button.dataset.page;
+const STORAGE_KEY="motohq_v4_todos";
 
-      pages.forEach(page => {
-        page.classList.remove("active");
-      });
 
-      document.getElementById(pageId).classList.add("active");
+const defaultTodos=[
 
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-  });
+{
+id:"d1",
+title:"Move bar mounts forward",
+machine:"Daisy",
+time:20,
+cost:"free",
+priority:"high",
+type:"Mod / Setup",
+notes:"",
+done:false
+},
+
+{
+id:"d2",
+title:"Test generator under load",
+machine:"MotoHQ",
+time:30,
+cost:"free",
+priority:"high",
+type:"Maintenance",
+notes:"Do this well before SMX weekend.",
+done:false
+},
+
+{
+id:"d3",
+title:"Check Reba clutch lever / switch install",
+machine:"Reba",
+time:10,
+cost:"free",
+priority:"normal",
+type:"Inspection",
+notes:"",
+done:false
+},
+
+{
+id:"d4",
+title:"Measure Reba rear sag",
+machine:"Reba",
+time:30,
+cost:"owned",
+priority:"normal",
+type:"Mod / Setup",
+notes:"",
+done:false
+},
+
+{
+id:"d5",
+title:"Safety-wire prep on Daisy",
+machine:"Daisy",
+time:30,
+cost:"owned",
+priority:"normal",
+type:"MotoHQ Project",
+notes:"",
+done:false
+}
+
+];
+
+
+function loadTodos(){
+
+const raw=localStorage.getItem(STORAGE_KEY);
+
+if(!raw){
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(defaultTodos)
+);
+
+return [...defaultTodos];
+
+}
+
+try{
+return JSON.parse(raw);
+}
+
+catch(e){
+return [...defaultTodos];
+}
+
+}
+
+
+function storeTodos(t){
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(t)
+);
+
+}
+
+
+let todos=loadTodos();
+
+
+function showPage(id){
+
+pages.forEach(
+p=>p.classList.remove("active")
+);
+
+document
+.getElementById(id)
+.classList.add("active");
+
+
+if(
+id!=="info" &&
+id!=="bikeDetail"
+){
+
+previousPage=id;
+
+}
+
+
+navs.forEach(n=>{
+
+n.classList.toggle(
+"active",
+n.dataset.page===id
+);
+
+});
+
+
+document
+.getElementById("todoFab")
+.classList.toggle(
+"show",
+id==="todo"
+);
+
+
+if(id==="todo"){
+renderTodoPage();
+}
+
+if(id==="hub"){
+renderTodoSnapshot();
+}
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+navs.forEach(n=>{
+
+n.onclick=()=>showPage(
+n.dataset.page
+);
+
+});
+
+
+function goBack(){
+
+showPage(previousPage);
+
+}
+
+
+/* BIKE DATA */
+
+const bikes={
+
+daisy:{
+
+name:"DAISY",
+
+model:
+"2024 KTM 990 DUKE • TRACK ONLY",
+
+image:
+"images/daisy.png",
+
+color:
+"#ff5a00",
+
+stats:[
+["1 / 3","TRACKDAYS ON OIL"],
+["1:38","HALLETT BEST"],
+["S22","CURRENT TIRE"]
+]
+
+},
+
+
+reba:{
+
+name:"REBA",
+
+model:
+"2025 KTM 500 EXC-F • TRAIL / DUAL SPORT",
+
+image:
+"images/reba.png",
+
+color:
+"#2478ff",
+
+stats:[
+["~20 MI","SINCE OIL CHANGE"],
+["110 MM","SAG TARGET"],
+["DOT","OFF-ROAD SETUP"]
+]
+
+},
+
+
+sue:{
+
+name:"SUE",
+
+model:
+"2020 TREK FUEL EX 8",
+
+image:
+"images/sue.png",
+
+color:
+"#a34bff",
+
+stats:[
+["NEW","TIRES"],
+["OZ","NEXT PARK"],
+["TBD","SAG SETUP"]
+]
+
+}
+
+};
+
+
+function openBike(bike){
+
+currentBike=bike;
+
+const b=bikes[bike];
+
+
+document
+.getElementById("bikeTitle")
+.innerText=b.name;
+
+
+document
+.getElementById("detailName")
+.innerText=b.name;
+
+
+document
+.getElementById("detailName")
+.style.color=b.color;
+
+
+document
+.getElementById("detailModel")
+.innerText=b.model;
+
+
+document
+.getElementById("bikeImage")
+.src=b.image;
+
+
+for(let i=0;i<3;i++){
+
+document
+.getElementById(
+"stat"+(i+1)
+)
+.innerText=b.stats[i][0];
+
+
+document
+.getElementById(
+"stat"+(i+1)+"label"
+)
+.innerText=b.stats[i][1];
+
+}
+
+
+showPage("bikeDetail");
+
+bikeSection("maintenance");
+
+}
+
+
+function bikeSection(type){
+
+let html="";
+
+
+if(currentBike==="daisy"){
+
+if(type==="maintenance"){
+
+html=`
+
+<div class="panel">
+
+<h3>Daisy Maintenance</h3>
+
+<div class="row">
+<strong>Engine Oil</strong>
+<span class="green">
+1 / 3 TRACKDAYS
+</span>
+</div>
+
+<div class="row">
+<strong>Chain</strong>
+<span class="green">
+OK
+</span>
+</div>
+
+<div class="row">
+<strong>Brake Pads</strong>
+<span class="green">
+OK
+</span>
+</div>
+
+<div class="row">
+<strong>Brake Fluid</strong>
+<span class="green">
+OK
+</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(type==="mods"){
+
+html=`
+
+<div class="panel">
+
+<h3>Daisy Mods / Setup</h3>
+
+<div class="row">
+<strong>
+KTM 990 R low / flat bar
+</strong>
+<span class="blue">
+ORDERED
+</span>
+</div>
+
+<div class="row">
+<strong>
+Domino MotoGP grips
+</strong>
+<span class="blue">
+ORDERED
+</span>
+</div>
+
+<div class="row">
+<strong>
+MG Biketec rearsets
+</strong>
+<span class="yellow">
+PLANNED
+</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(type==="tires"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+
+<strong>
+Bridgestone S22
+</strong>
+
+<span class="green">
+ACTIVE
+</span>
+
+</div>
+
+
+<div class="row">
+
+<strong>
+Michelin Power Cup 2
+</strong>
+
+<span class="yellow">
+NEXT
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(type==="history"){
+
+html=`
+
+<div class="panel">
+
+<h3>
+Hallett Progress
+</h3>
+
+
+<div class="row">
+
+<strong>
+First day
+</strong>
+
+<span>
+1:47
+</span>
+
+</div>
+
+
+<div class="row">
+
+<strong>
+Apr 4, 2026
+</strong>
+
+<span>
+1:45.4
+</span>
+
+</div>
+
+
+<div class="row">
+
+<strong>
+May 2026
+</strong>
+
+<span class="orange">
+1:38
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* REBA */
+
+if(currentBike==="reba"){
+
+if(type==="maintenance"){
+
+html=`
+
+<div class="panel">
+
+<h3>
+Reba Maintenance
+</h3>
+
+<div class="row">
+
+<strong>
+Engine Oil
+</strong>
+
+<span class="green">
+~20 MI
+</span>
+
+</div>
+
+
+<div class="row">
+
+<strong>
+Air Filter
+</strong>
+
+<span>
+CHECK AFTER DUST
+</span>
+
+</div>
+
+
+<div class="row">
+
+<strong>
+Rear Sag
+</strong>
+
+<span class="yellow">
+MEASURE
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(type==="mods"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+
+<strong>
+Compact turn signal buttons
+</strong>
+
+<span class="green">
+DONE
+</span>
+
+</div>
+
+
+<div class="row">
+
+<strong>
+Rekluse Core Manual TorqDrive
+</strong>
+
+<span class="yellow">
+FUTURE
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* SUE */
+
+if(currentBike==="sue"){
+
+html=`
+
+<div class="panel">
+
+<h3>
+Sue
+</h3>
+
+<div class="row">
+
+<strong>
+Suspension Sag
+</strong>
+
+<span class="yellow">
+SETUP NEEDED
+</span>
+
+</div>
+
+<div class="row">
+
+<strong>
+OZ Bike Park
+</strong>
+
+<span>
+FALL
+</span>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+document
+.getElementById("bikeContent")
+.innerHTML=html;
+
+}
+
+
+/* TODO SNAPSHOT */
+
+function priorityRank(p){
+
+return p==="high"
+?0
+:p==="normal"
+?1
+:2;
+
+}
+
+
+function renderTodoSnapshot(){
+
+const eligible=todos
+
+.filter(t=>
+
+!t.done &&
+
+t.cost!=="purchase" &&
+
+t.time<=30
+
+)
+
+.sort((a,b)=>
+
+priorityRank(a.priority)
+-
+priorityRank(b.priority)
+
+||
+
+a.time-b.time
+
+)
+
+.slice(0,3);
+
+
+document
+.getElementById("snapshotCount")
+.textContent=
+
+eligible.length
+
+? eligible.length+" READY NOW"
+
+: "NOTHING URGENT";
+
+
+const el=
+document.getElementById(
+"todoSnapshot"
+);
+
+
+if(!eligible.length){
+
+el.innerHTML=`
+
+<div style="
+color:#777;
+text-align:center;
+padding:18px;
+font-size:11px;
+">
+
+Nothing obvious to do.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+el.innerHTML=
+
+eligible
+.map(todo=>todoMini(todo))
+.join("");
+
+}
+
+
+function machineColor(m){
+
+if(m==="Daisy")
+return "#ff5a00";
+
+if(m==="Reba")
+return "#2478ff";
+
+if(m==="Sue")
+return "#a34bff";
+
+return "#35d36b";
+
+}
+
+
+function todoMini(t){
+
+return `
+
+<div class="todo-item">
+
+<span
+class="todo-dot"
+style="
+background:
+${machineColor(t.machine)}
+">
+</span>
+
+
+<div>
+
+<div class="todo-title">
+
+${escapeHtml(t.title)}
+
+</div>
+
+
+<div class="todo-meta">
+
+${escapeHtml(t.machine)}
+•
+${t.time} min
+•
+${escapeHtml(t.type)}
+
+</div>
+
+</div>
+
+
+<span class="todo-badge">
+
+${
+t.cost==="free"
+?"$0"
+:t.cost==="owned"
+?"PARTS OWNED"
+:"BUY"
+}
+
+</span>
+
+</div>
+
+`;
+
+}
+
+
+/* TODO PAGE */
+
+function renderTodoPage(){
+
+const open=
+todos.filter(
+t=>!t.done
+);
+
+
+const now=open
+
+.filter(t=>
+
+t.cost!=="purchase"
+&&
+t.time<=30
+
+)
+
+.sort((a,b)=>
+
+priorityRank(a.priority)
+-
+priorityRank(b.priority)
+
+);
+
+
+const longer=open
+
+.filter(t=>
+
+t.cost!=="purchase"
+&&
+t.time>30
+
+);
+
+
+const waiting=open
+
+.filter(t=>
+
+t.cost==="purchase"
+
+);
+
+
+const done=todos
+
+.filter(t=>t.done)
+
+.slice(-8)
+
+.reverse();
+
+
+document
+.getElementById(
+"todoPageContent"
+)
+.innerHTML=
+
+todoSection(
+"Do Now — 30 min or less",
+now
+)
+
++
+
+todoSection(
+"When you've got more time",
+longer
+)
+
++
+
+todoSection(
+"Waiting on purchase / parts",
+waiting
+)
+
++
+
+todoSection(
+"Recently completed",
+done,
+true
+);
+
+}
+
+
+function todoSection(
+title,
+list,
+completed=false
+){
+
+return `
+
+<div class="todo-section-title">
+
+<h3>
+${title}
+</h3>
+
+${
+!completed
+?
+`<button
+class="add-btn"
+onclick="openTodoModal()">
++ ADD
+</button>`
+:""
+}
+
+</div>
+
+
+<div class="panel">
+
+${
+list.length
+
+?
+list
+.map(t=>todoFull(t))
+.join("")
+
+:
+
+`<div style="
+color:#777;
+text-align:center;
+padding:18px;
+font-size:11px;
+">
+Nothing here.
+</div>`
+}
+
+</div>
+
+`;
+
+}
+
+
+function todoFull(t){
+
+return `
+
+<div style="
+padding:6px 0 12px;
+border-bottom:
+1px solid var(--line)
+">
+
+<div class="todo-item"
+style="
+border:0;
+padding-bottom:5px
+">
+
+<span
+class="todo-dot"
+style="
+background:
+${machineColor(t.machine)}
+">
+</span>
+
+
+<div>
+
+<div
+class="todo-title"
+style="
+${t.done
+?'text-decoration:line-through;color:#777'
+:''
+}
+">
+
+${escapeHtml(t.title)}
+
+</div>
+
+
+<div class="todo-meta">
+
+${escapeHtml(t.machine)}
+•
+${t.time} min
+•
+${escapeHtml(t.type)}
+•
+${t.priority.toUpperCase()}
+
+</div>
+
+
+${
+t.notes
+?
+`<div class="todo-meta">
+${escapeHtml(t.notes)}
+</div>`
+:""
+}
+
+</div>
+
+
+<span class="todo-badge">
+
+${
+t.cost==="free"
+?"$0"
+:t.cost==="owned"
+?"OWNED"
+:"BUY"
+}
+
+</span>
+
+</div>
+
+
+<div class="edit-actions">
+
+${
+!t.done
+
+?
+
+`<button
+class="mini-btn done"
+onclick="
+completeTodo('${t.id}')
+">
+✓ Complete
+</button>`
+
+:
+
+`<button
+class="mini-btn"
+onclick="
+reopenTodo('${t.id}')
+">
+↺ Reopen
+</button>`
+
+}
+
+
+<button
+class="mini-btn"
+onclick="
+editTodo('${t.id}')
+">
+✎ Edit
+</button>
+
+
+<button
+class="mini-btn delete"
+onclick="
+deleteTodo('${t.id}')
+">
+Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* ADD / EDIT TODO */
+
+function openTodoModal(){
+
+document
+.getElementById("modalTitle")
+.textContent=
+"Add MotoHQ ToDo";
+
+
+document
+.getElementById("editId")
+.value="";
+
+
+document
+.getElementById(
+"todoTitleInput"
+)
+.value="";
+
+
+document
+.getElementById(
+"todoModal"
+)
+.classList.add("show");
+
+}
+
+
+function closeTodoModal(){
+
+document
+.getElementById(
+"todoModal"
+)
+.classList.remove("show");
+
+}
+
+
+function saveTodo(){
+
+const title=
+document
+.getElementById(
+"todoTitleInput"
+)
+.value
+.trim();
+
+
+if(!title)
+return;
+
+
+const id=
+document
+.getElementById(
+"editId"
+)
+.value;
+
+
+const item={
+
+id:
+id || "t"+Date.now(),
+
+title:title,
+
+machine:
+document
+.getElementById(
+"todoMachine"
+)
+.value,
+
+time:
+Number(
+document
+.getElementById(
+"todoTime"
+)
+.value
+),
+
+cost:
+document
+.getElementById(
+"todoCost"
+)
+.value,
+
+priority:
+document
+.getElementById(
+"todoPriority"
+)
+.value,
+
+type:
+document
+.getElementById(
+"todoType"
+)
+.value,
+
+notes:
+document
+.getElementById(
+"todoNotes"
+)
+.value
+.trim(),
+
+done:false
+
+};
+
+
+if(id){
+
+const old=
+todos.find(
+t=>t.id===id
+);
+
+
+item.done=
+old
+?
+old.done
+:
+false;
+
+
+todos=
+todos.map(
+t=>
+t.id===id
+?
+item
+:
+t
+);
+
+}
+
+else{
+
+todos.push(item);
+
+}
+
+
+storeTodos(todos);
+
+closeTodoModal();
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+function editTodo(id){
+
+const t=
+todos.find(
+x=>x.id===id
+);
+
+
+if(!t)
+return;
+
+
+document
+.getElementById(
+"modalTitle"
+)
+.textContent=
+"Edit MotoHQ ToDo";
+
+
+document
+.getElementById(
+"editId"
+)
+.value=t.id;
+
+
+document
+.getElementById(
+"todoTitleInput"
+)
+.value=t.title;
+
+
+document
+.getElementById(
+"todoMachine"
+)
+.value=t.machine;
+
+
+document
+.getElementById(
+"todoTime"
+)
+.value=
+String(t.time);
+
+
+document
+.getElementById(
+"todoCost"
+)
+.value=t.cost;
+
+
+document
+.getElementById(
+"todoPriority"
+)
+.value=t.priority;
+
+
+document
+.getElementById(
+"todoType"
+)
+.value=t.type;
+
+
+document
+.getElementById(
+"todoNotes"
+)
+.value=
+t.notes || "";
+
+
+document
+.getElementById(
+"todoModal"
+)
+.classList.add("show");
+
+}
+
+
+function completeTodo(id){
+
+todos=
+todos.map(
+t=>
+t.id===id
+?
+{...t,done:true}
+:
+t
+);
+
+
+storeTodos(todos);
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+function reopenTodo(id){
+
+todos=
+todos.map(
+t=>
+t.id===id
+?
+{...t,done:false}
+:
+t
+);
+
+
+storeTodos(todos);
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+function deleteTodo(id){
+
+todos=
+todos.filter(
+t=>t.id!==id
+);
+
+
+storeTodos(todos);
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+function escapeHtml(s){
+
+return String(s)
+.replace(
+/[&<>"']/g,
+m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[m])
+);
+
+}
+
+
+/* BASIC INFO */
+
+function openInfo(type){
+
+let html="";
+
+
+if(type==="Maintenance"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+<strong>Daisy</strong>
+<span>
+1 / 3 trackdays on oil
+</span>
+</div>
+
+<div class="row">
+<strong>Reba</strong>
+<span>
+~20 mi since oil
+</span>
+</div>
+
+<div class="row">
+<strong>MotoHQ</strong>
+<span class="yellow">
+Generator test
+</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(type==="Shopping"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+<strong>
+Rabaconda tire changer
+</strong>
+<span class="yellow">
+PRIORITY
+</span>
+</div>
+
+<div class="row">
+<strong>
+RaceBox Mini S
+</strong>
+<span>
+WAIT FOR DEAL
+</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(type==="Checklists"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+<strong>
+Hallett Trackday
+</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>
+SMX Camping Weekend
+</strong>
+<span>›</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(type==="Settings"){
+
+html=`
+
+<div class="panel">
+
+<h3>
+MotoHQ — The Hub
+</h3>
+
+<p style="color:#aaa">
+Version 0.4
+</p>
+
+<p style="color:#aaa">
+Visual first.
+Mobile first.
+Built for actually doing bike shit.
+</p>
+
+</div>
+
+`;
+
+}
+
+
+document
+.getElementById(
+"infoTitle"
+)
+.innerText=type;
+
+
+document
+.getElementById(
+"infoContent"
+)
+.innerHTML=html;
+
+
+showPage("info");
+
+}
+
+
+/* START */
+
+renderTodoSnapshot();
+
 </script>
 
 </body>
