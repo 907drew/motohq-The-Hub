@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#070707">
-<title>MotoHQ — The Hub v0.5</title>
+<title>MotoHQ — The Hub v5.1</title>
 
 <style>
 :root{
@@ -232,6 +233,7 @@ button{cursor:pointer}
   width:100%;
   height:250px;
   object-fit:cover;
+  object-position:center;
   display:block;
 }
 
@@ -369,10 +371,15 @@ button{cursor:pointer}
   border:1px solid var(--line);
   margin-bottom:15px;
   position:relative;
+  min-height:260px;
+  background:#111;
 }
 
 .bike-detail-hero img{
   width:100%;
+  height:320px;
+  object-fit:cover;
+  object-position:center;
   display:block;
 }
 
@@ -910,7 +917,7 @@ button{cursor:pointer}
     <div class="logo">
       <span class="moto">MOTO</span><span class="hq">HQ</span>
     </div>
-    <div class="logo-sub">THE HUB • V5</div>
+    <div class="logo-sub">THE HUB • V5.1</div>
   </div>
   <button class="header-btn" onclick="openInfo('Settings')">⚙</button>
 </header>
@@ -935,7 +942,7 @@ button{cursor:pointer}
 <div class="bike-grid">
 
 <div class="bike-hero" onclick="openBike('daisy')">
-  <img src="images/daisy.png">
+  <img src="daisy.png" alt="Daisy">
   <div class="bike-overlay"></div>
   <div class="bike-info">
     <div>
@@ -947,7 +954,7 @@ button{cursor:pointer}
 </div>
 
 <div class="bike-hero" onclick="openBike('reba')">
-  <img src="images/reba.png">
+  <img src="reba.png" alt="Reba">
   <div class="bike-overlay"></div>
   <div class="bike-info">
     <div>
@@ -959,7 +966,7 @@ button{cursor:pointer}
 </div>
 
 <div class="bike-hero" onclick="openBike('sue')">
-  <img src="images/sue.png">
+  <img src="sue.png" alt="Sue">
   <div class="bike-overlay"></div>
   <div class="bike-info">
     <div>
@@ -1019,7 +1026,7 @@ button{cursor:pointer}
 <div class="bike-grid">
 
 <div class="bike-hero" onclick="openBike('daisy')">
-  <img src="images/daisy.png">
+  <img src="daisy.png" alt="Daisy">
   <div class="bike-overlay"></div>
   <div class="bike-info">
     <div>
@@ -1031,7 +1038,7 @@ button{cursor:pointer}
 </div>
 
 <div class="bike-hero" onclick="openBike('reba')">
-  <img src="images/reba.png">
+  <img src="reba.png" alt="Reba">
   <div class="bike-overlay"></div>
   <div class="bike-info">
     <div>
@@ -1043,7 +1050,7 @@ button{cursor:pointer}
 </div>
 
 <div class="bike-hero" onclick="openBike('sue')">
-  <img src="images/sue.png">
+  <img src="sue.png" alt="Sue">
   <div class="bike-overlay"></div>
   <div class="bike-info">
     <div>
@@ -1068,7 +1075,7 @@ button{cursor:pointer}
 </div>
 
 <div class="bike-detail-hero">
-  <img id="bikeImage">
+  <img id="bikeImage" alt="">
   <div class="detail-overlay"></div>
   <div class="detail-name">
     <h1 id="detailName"></h1>
@@ -1512,6 +1519,7 @@ function showPage(id){
     .classList.toggle('show',id==='todo');
 
   if(id==='todo') renderTodoPage();
+
   if(id==='hub'){
     renderTodoSnapshot();
     renderNearFuture();
@@ -1588,6 +1596,7 @@ function loadFuture(){
     const saved=JSON.parse(localStorage.getItem(FUTURE_STORAGE_KEY));
     if(Array.isArray(saved) && saved.length===4) return saved;
   }catch(e){}
+
   return futureDefaults.map(x=>({...x}));
 }
 
@@ -1620,12 +1629,10 @@ function toggleBooked(id,value){
 }
 
 function renderNearFuture(){
-
   const el=document.getElementById('nearFuture');
   if(!el) return;
 
   el.innerHTML=futureWeekends.map(w=>{
-
     const detail=w.planned
       ? w.detail
       : randomRoast(w.id);
@@ -1656,7 +1663,6 @@ function renderNearFuture(){
 
       </div>
     `;
-
   }).join('');
 }
 
@@ -1669,7 +1675,7 @@ const bikes={
   daisy:{
     name:'DAISY',
     model:'2024 KTM 990 DUKE • TRACK ONLY',
-    image:'images/daisy.png',
+    image:'daisy.png',
     color:'#ff5a00',
     stats:[
       ['1 / 3','TRACKDAYS ON OIL'],
@@ -1681,7 +1687,7 @@ const bikes={
   reba:{
     name:'REBA',
     model:'2025 KTM 500 EXC-F • TRAIL / DUAL SPORT',
-    image:'images/reba.png',
+    image:'reba.png',
     color:'#2478ff',
     stats:[
       ['~20 MI','SINCE OIL CHANGE'],
@@ -1693,7 +1699,7 @@ const bikes={
   sue:{
     name:'SUE',
     model:'2020 TREK FUEL EX 8',
-    image:'images/sue.png',
+    image:'sue.png',
     color:'#a34bff',
     stats:[
       ['TRAIL','MTB'],
@@ -1705,7 +1711,6 @@ const bikes={
 };
 
 function openBike(bike){
-
   currentBike=bike;
 
   const b=bikes[bike];
@@ -1714,7 +1719,10 @@ function openBike(bike){
   document.getElementById('detailName').innerText=b.name;
   document.getElementById('detailName').style.color=b.color;
   document.getElementById('detailModel').innerText=b.model;
-  document.getElementById('bikeImage').src=b.image;
+
+  const bikeImage=document.getElementById('bikeImage');
+  bikeImage.src=b.image;
+  bikeImage.alt=b.name;
 
   for(let i=0;i<3;i++){
     document.getElementById('stat'+(i+1)).innerText=b.stats[i][0];
@@ -1776,7 +1784,6 @@ const maintenanceDefaults={
 };
 
 function loadMaintenance(){
-
   try{
     const saved=JSON.parse(
       localStorage.getItem(MAINT_STORAGE_KEY)
@@ -1799,7 +1806,6 @@ function loadMaintenance(){
         }
       };
     }
-
   }catch(e){}
 
   return JSON.parse(JSON.stringify(maintenanceDefaults));
@@ -1815,7 +1821,6 @@ function storeMaintenance(){
 }
 
 function resetDaisyOil(){
-
   if(!confirm('Reset Daisy oil/filter baseline to 0 trackdays?')) return;
 
   maintenance.daisy.trackdaysSinceOil=0;
@@ -1826,7 +1831,6 @@ function resetDaisyOil(){
 }
 
 function addDaisyTrackday(){
-
   maintenance.daisy.trackdaysSinceOil++;
 
   if(maintenance.daisy.tires){
@@ -1839,7 +1843,6 @@ function addDaisyTrackday(){
 }
 
 function resetRebaOil(){
-
   if(!confirm('Reset Reba oil/filter baseline to 0 miles / hours?')) return;
 
   maintenance.reba.milesSinceOil=0;
@@ -1851,7 +1854,6 @@ function resetRebaOil(){
 }
 
 function addRebaMiles(){
-
   const n=Number(
     prompt('Approximate trail miles to add:')
   );
@@ -1867,7 +1869,6 @@ function addRebaMiles(){
 }
 
 function refreshBikeStats(){
-
   bikes.daisy.stats[0][0]=
     maintenance.daisy.trackdaysSinceOil+' / 3';
 
@@ -1875,7 +1876,6 @@ function refreshBikeStats(){
     '~'+Math.round(maintenance.reba.milesSinceOil||0)+' MI';
 
   if(currentBike==='daisy' || currentBike==='reba'){
-
     const b=bikes[currentBike];
 
     for(let i=0;i<3;i++){
@@ -1895,8 +1895,6 @@ function refreshBikeStats(){
 function bikeSection(type){
 
   let h='';
-
-  /* DAISY */
 
   if(currentBike==='daisy'){
 
@@ -2009,7 +2007,6 @@ function bikeSection(type){
     }
 
     if(type==='mods'){
-
       h=`
       <div class="panel">
 
@@ -2055,7 +2052,6 @@ function bikeSection(type){
     }
 
     if(type==='tires'){
-
       h=`
       <div class="panel">
 
@@ -2086,7 +2082,6 @@ function bikeSection(type){
     }
 
     if(type==='history'){
-
       h=`
       <div class="panel">
 
@@ -2112,12 +2107,9 @@ function bikeSection(type){
     }
   }
 
-  /* REBA */
-
   if(currentBike==='reba'){
 
     if(type==='maintenance'){
-
       h=`
       <div class="panel">
 
@@ -2213,7 +2205,6 @@ function bikeSection(type){
     }
 
     if(type==='mods'){
-
       h=`
       <div class="panel">
 
@@ -2237,7 +2228,6 @@ function bikeSection(type){
     }
 
     if(type==='tires'){
-
       h=`
       <div class="panel">
 
@@ -2258,7 +2248,6 @@ function bikeSection(type){
     }
 
     if(type==='history'){
-
       h=`
       <div class="panel">
 
@@ -2282,12 +2271,9 @@ function bikeSection(type){
     }
   }
 
-  /* SUE */
-
   if(currentBike==='sue'){
 
     if(type==='maintenance'){
-
       h=`
       <div class="panel">
 
@@ -2318,7 +2304,6 @@ function bikeSection(type){
     }
 
     if(type==='mods'){
-
       h=`
       <div class="panel">
         <h3>Sue Setup</h3>
@@ -2330,7 +2315,6 @@ function bikeSection(type){
     }
 
     if(type==='tires'){
-
       h=`
       <div class="panel">
         <div class="row">
@@ -2342,7 +2326,6 @@ function bikeSection(type){
     }
 
     if(type==='history'){
-
       h=`
       <div class="panel">
         <div class="row">
@@ -3412,7 +3395,22 @@ function openInfo(type){
 
       <div class="row">
         <strong>Version</strong>
-        <span class="orange">V5</span>
+        <span class="orange">V5.1</span>
+      </div>
+
+      <div class="row">
+        <strong>Daisy image</strong>
+        <span>daisy.png</span>
+      </div>
+
+      <div class="row">
+        <strong>Reba image</strong>
+        <span>reba.png</span>
+      </div>
+
+      <div class="row">
+        <strong>Sue image</strong>
+        <span>sue.png</span>
       </div>
 
       <div class="row">
@@ -3436,8 +3434,7 @@ function openInfo(type){
       </div>
 
       <p class="panel-note">
-        Existing V4 ToDos continue using the original storage key
-        so replacing the index file does not intentionally wipe them.
+        V5.1 loads Daisy, Reba and Sue directly from PNG files stored beside index.html in the GitHub repository.
       </p>
 
     </div>
@@ -3462,3 +3459,4 @@ renderTodoSnapshot();
 
 </body>
 </html>
+```
