@@ -2,727 +2,3817 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#070707">
-<title>MotoHQ — The Hub V6</title>
+<title>Midpack Syndicate — The Hub v6</title>
 
 <style>
 :root{
-  --bg:#070707;--panel:#111;--panel2:#171717;--orange:#ff5a00;
-  --blue:#2478ff;--purple:#a34bff;--green:#35d36b;--yellow:#ffc928;
-  --red:#ff4d4d;--text:#f5f5f5;--muted:#929292;--line:#292929;
+  --bg:#070707;
+  --panel:#111;
+  --panel2:#181818;
+  --orange:#ff5a00;
+  --blue:#2478ff;
+  --purple:#a34bff;
+  --green:#35d36b;
+  --yellow:#eaff00;
+  --red:#ff4d4d;
+  --text:#f5f5f5;
+  --muted:#929292;
+  --line:#2a2a2a;
 }
+
 *{box-sizing:border-box}
+
 body{
-  margin:0;background:radial-gradient(circle at top,rgba(255,90,0,.09),transparent 25%),var(--bg);
-  color:var(--text);font-family:Arial,Helvetica,sans-serif;padding-bottom:90px;
+  margin:0;
+  background:
+    radial-gradient(circle at top,rgba(255,90,0,.09),transparent 26%),
+    var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  padding-bottom:96px;
 }
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.app{max-width:760px;margin:auto}
-.header{display:flex;justify-content:space-between;align-items:center;padding:18px 16px 10px}
-.logo{font-size:30px;font-weight:900;font-style:italic}
-.moto{color:var(--orange)} .hq{color:var(--blue)}
-.logo-sub{font-size:10px;color:#888;letter-spacing:4px;margin-top:4px}
-.header-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:#fff}
-.page{display:none;padding:6px 15px 30px}.page.active{display:block}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  -webkit-tap-highlight-color:transparent;
+}
+
+.app{
+  max-width:760px;
+  margin:auto;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 16px 10px;
+}
+
+.logo-main{
+  font-size:24px;
+  font-weight:1000;
+  font-style:italic;
+  letter-spacing:-1px;
+}
+
+.logo-mid{color:white}
+.logo-pack{color:var(--orange)}
+
+.logo-sub{
+  color:var(--yellow);
+  font-weight:900;
+  font-size:10px;
+  letter-spacing:4px;
+  margin-top:4px;
+}
+
+.header-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:#fff;
+  font-size:19px;
+}
+
+.page{
+  display:none;
+  padding:6px 15px 30px;
+}
+
+.page.active{
+  display:block;
+}
+
 .hero{
-  min-height:185px;border-radius:24px;border:1px solid #252525;padding:18px;
-  display:flex;align-items:flex-end;position:relative;overflow:hidden;
-  background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1)),linear-gradient(140deg,#101010,#31190d,#0d1830);
+  min-height:175px;
+  border-radius:24px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid #252525;
+  background:
+    linear-gradient(to top,rgba(0,0,0,.92),rgba(0,0,0,.15)),
+    linear-gradient(140deg,#101010,#31190d,#0d1830);
+  padding:18px;
+  display:flex;
+  align-items:flex-end;
 }
-.hero:after{content:"🏁";position:absolute;right:18px;top:10px;font-size:95px;opacity:.07}
-.hero .eyebrow{color:var(--orange);font-weight:900;font-size:11px;letter-spacing:1.4px}
-.hero h1{margin:5px 0;font-size:29px}.hero p{margin:0;color:#aaa;font-size:13px}
-.section-title{color:#aaa;font-size:12px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase;margin:22px 3px 10px}
-.page-title{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 12px}
-.page-title h1{margin:0;color:var(--orange);font-size:28px}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px}
-.panel h3{margin:0 0 9px;font-size:17px}
-.note{color:#888;font-size:10px;line-height:1.5}
-.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
-.row:last-child{border-bottom:0}.row strong{font-size:12px}.row span{font-size:10px;text-align:right}
-.green{color:var(--green)}.yellow{color:var(--yellow)}.red{color:var(--red)}
-.orange{color:var(--orange)}.blue{color:var(--blue)}.purple{color:var(--purple)}.muted{color:var(--muted)}
 
-.add-btn,.mini-btn,.primary-btn{
-  border:1px solid #47301f;background:rgba(255,90,0,.09);color:var(--orange);
-  border-radius:999px;padding:8px 11px;font-size:9px;font-weight:900;
+.hero:after{
+  content:"🏁";
+  position:absolute;
+  right:18px;
+  top:7px;
+  font-size:90px;
+  opacity:.06;
 }
-.primary-btn{background:var(--orange);color:#fff;border-color:var(--orange);padding:11px 14px}
-.mini-btn{border-color:#333;background:#171717;color:#ccc}
-.mini-btn.done{color:var(--green)}.mini-btn.delete{color:var(--red)}
-.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
 
-/* WEEKENDS */
-.future-grid{display:grid;grid-template-columns:1fr;gap:10px}
-.future-card{background:linear-gradient(145deg,#151515,#0d0d0d);border:1px solid var(--line);border-radius:18px;padding:14px}
-.future-card.previous{box-shadow:inset 3px 0 var(--blue);border-color:#223a5f}
-.future-card.planned:not(.previous){box-shadow:inset 3px 0 var(--orange);border-color:#49301f}
-.future-top{display:flex;justify-content:space-between;gap:10px}
-.future-date{font-size:9px;color:#888;font-weight:900;letter-spacing:.8px}
-.future-title{font-size:17px;font-weight:900;margin:4px 0}
-.future-detail{color:#999;font-size:11px;line-height:1.45}
-.badge{font-size:8px;font-weight:900;border:1px solid #333;border-radius:999px;padding:5px 7px;white-space:nowrap;height:max-content}
-.booked{display:flex;gap:7px;align-items:center;color:#aaa;font-size:9px;margin-top:10px}
-.booked input{width:17px;height:17px;accent-color:var(--orange)}
-.after-btn{width:100%;margin-top:10px;border:1px solid #32578e;background:#101b2d;color:#65a0ff;border-radius:11px;padding:10px;font-weight:900;font-size:10px}
+.eyebrow{
+  color:var(--orange);
+  font-weight:900;
+  font-size:10px;
+  letter-spacing:1.4px;
+}
+
+.hero h1{
+  margin:5px 0;
+  font-size:29px;
+}
+
+.hero p{
+  margin:0;
+  color:#aaa;
+  font-size:13px;
+}
+
+.section-title{
+  color:#aaa;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.3px;
+  text-transform:uppercase;
+  margin:22px 3px 10px;
+}
+
+.page-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:4px 2px 12px;
+}
+
+.page-title h1{
+  margin:0;
+  color:var(--orange);
+  font-size:28px;
+}
+
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.panel h3{
+  margin:0 0 9px;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  gap:10px;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.row strong{
+  font-size:13px;
+}
+
+.row small{
+  color:var(--muted);
+}
+
+.green{color:var(--green)}
+.yellow{color:var(--yellow)}
+.blue{color:var(--blue)}
+.orange{color:var(--orange)}
+.purple{color:var(--purple)}
+.red{color:var(--red)}
+
+.add-btn{
+  border:1px solid #47301f;
+  background:rgba(255,90,0,.09);
+  color:var(--orange);
+  border-radius:999px;
+  padding:8px 11px;
+  font-size:10px;
+  font-weight:900;
+}
+
+.small-btn{
+  border:1px solid #333;
+  background:#171717;
+  color:#ddd;
+  border-radius:10px;
+  padding:7px 9px;
+  font-size:9px;
+}
+
+.small-btn.green{
+  color:var(--green);
+}
+
+.small-btn.red{
+  color:var(--red);
+}
+
+/* NEAR FUTURE */
+
+.weekend-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.weekend-card{
+  min-height:142px;
+  background:linear-gradient(145deg,#151515,#0d0d0d);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:13px;
+  position:relative;
+  overflow:hidden;
+}
+
+.weekend-card.trackday{
+  box-shadow:inset 3px 0 var(--orange);
+}
+
+.weekend-card.dirt{
+  box-shadow:inset 3px 0 var(--blue);
+}
+
+.weekend-card.mtb{
+  box-shadow:inset 3px 0 var(--purple);
+}
+
+.weekend-card.garage{
+  box-shadow:inset 3px 0 var(--green);
+}
+
+.weekend-card.trip{
+  box-shadow:inset 3px 0 var(--yellow);
+}
+
+.weekend-card.open{
+  border-style:dashed;
+}
+
+.weekend-date{
+  color:#888;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.weekend-type{
+  margin-top:8px;
+  color:var(--orange);
+  font-size:10px;
+  font-weight:900;
+}
+
+.weekend-card.dirt .weekend-type{color:var(--blue)}
+.weekend-card.mtb .weekend-type{color:var(--purple)}
+.weekend-card.garage .weekend-type{color:var(--green)}
+.weekend-card.trip .weekend-type{color:var(--yellow)}
+
+.weekend-title{
+  margin-top:4px;
+  font-size:17px;
+  font-weight:900;
+}
+
+.weekend-note{
+  margin-top:5px;
+  color:#999;
+  font-size:10px;
+  line-height:1.3;
+}
+
+.roast{
+  color:#aaa;
+  font-size:11px;
+  line-height:1.35;
+  margin-top:10px;
+  font-style:italic;
+}
+
+.weekend-actions{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.booked{
+  display:flex;
+  gap:5px;
+  align-items:center;
+  color:#aaa;
+  font-size:9px;
+  margin-top:9px;
+}
 
 /* BIKES */
-.bike-grid{display:grid;grid-template-columns:1fr;gap:14px}
-.bike-hero{border-radius:22px;overflow:hidden;position:relative;min-height:245px;border:1px solid var(--line);background:#111;cursor:pointer}
-.bike-hero img{width:100%;height:250px;object-fit:cover;display:block}
-.bike-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.95),transparent 58%)}
-.bike-info{position:absolute;left:15px;right:15px;bottom:14px;display:flex;justify-content:space-between;align-items:flex-end}
-.bike-name{font-size:24px;font-weight:900}.bike-model{font-size:11px;color:#ccc}
-.status{font-size:9px;font-weight:900;color:var(--green)}
-.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.quick{border:1px solid var(--line);background:var(--panel);color:#fff;min-height:95px;border-radius:17px;padding:13px;text-align:left}
-.quick .icon{display:block;font-size:27px;margin-bottom:9px}.quick .label{font-size:11px;font-weight:900}
-.subhead{display:flex;align-items:center;gap:9px;margin-bottom:12px}.subhead h2{margin:0;color:var(--orange)}
-.back{border:0;background:transparent;color:#fff;font-size:27px}
-.bike-detail-hero{border-radius:22px;overflow:hidden;border:1px solid var(--line);position:relative;margin-bottom:14px}
-.bike-detail-hero img{width:100%;height:310px;object-fit:cover;display:block}
-.detail-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9),transparent 55%)}
-.detail-name{position:absolute;left:15px;bottom:14px}.detail-name h1{margin:0;font-size:30px}.detail-name p{margin:3px 0;color:#bbb;font-size:11px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:13px 5px;text-align:center}
-.stat strong{display:block;font-size:17px}.stat small{color:#888;font-size:8px}
-.ride-button{width:100%;border:0;border-radius:15px;background:var(--orange);color:#fff;font-weight:900;padding:14px;margin-bottom:12px;font-size:12px}
-.action-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
-.action{background:var(--panel);border:1px solid var(--line);border-radius:15px;color:#fff;padding:11px 3px;text-align:center}
-.action .icon{font-size:22px;display:block;margin-bottom:5px}.action small{font-size:7px;color:#aaa;font-weight:900}
 
-/* LISTS */
-.list-head{display:flex;justify-content:space-between;align-items:center;margin:18px 2px 8px}
-.list-head h3{margin:0;font-size:14px;color:#bbb;text-transform:uppercase;letter-spacing:1px}
-.list-item{padding:12px 0;border-bottom:1px solid var(--line)}.list-item:last-child{border-bottom:0}
-.list-top{display:flex;justify-content:space-between;gap:10px}
-.list-title{font-size:12px;font-weight:900}.list-meta{font-size:9px;color:#888;margin-top:4px;line-height:1.45}
-.empty{text-align:center;color:#777;font-size:11px;padding:18px}
+.bike-grid{
+  display:grid;
+  gap:14px;
+}
+
+.bike-hero{
+  border-radius:22px;
+  overflow:hidden;
+  position:relative;
+  height:245px;
+  border:1px solid var(--line);
+  background:#111;
+}
+
+.bike-hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.bike-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.95),transparent 58%);
+}
+
+.bike-info{
+  position:absolute;
+  left:15px;
+  bottom:14px;
+  right:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+}
+
+.bike-name{
+  font-size:24px;
+  font-weight:900;
+}
+
+.daisy-color{color:var(--orange)}
+.reba-color{color:var(--blue)}
+.sue-color{color:var(--purple)}
+
+.bike-model{
+  color:#ccc;
+  font-size:11px;
+  margin-top:2px;
+}
+
+.status{
+  color:var(--green);
+  font-size:10px;
+  font-weight:900;
+}
+
+.bike-detail-hero{
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:15px;
+  position:relative;
+}
+
+.bike-detail-hero img{
+  width:100%;
+  display:block;
+}
+
+.detail-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.88),transparent 55%);
+}
+
+.detail-name{
+  position:absolute;
+  left:15px;
+  bottom:14px;
+}
+
+.detail-name h1{
+  margin:0;
+}
+
+.detail-name p{
+  margin:3px 0 0;
+  font-size:11px;
+  color:#bbb;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.stat{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px 5px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:17px;
+}
+
+.stat small{
+  color:#888;
+  font-size:8px;
+}
+
+.action-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
+  margin-bottom:15px;
+}
+
+.action{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  color:#fff;
+  padding:11px 2px;
+  text-align:center;
+}
+
+.action .icon{
+  display:block;
+  font-size:22px;
+  margin-bottom:5px;
+}
+
+.action small{
+  font-size:7px;
+  color:#aaa;
+  font-weight:900;
+}
+
+.back{
+  border:0;
+  background:transparent;
+  color:white;
+  font-size:27px;
+  padding:0;
+}
+
+.subhead{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:12px;
+}
+
+.subhead h2{
+  margin:0;
+  color:var(--orange);
+  font-size:22px;
+}
+
+/* QUICK SPECS */
+
+.spec-section{
+  margin-bottom:16px;
+}
+
+.spec-title{
+  color:var(--orange);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin-bottom:6px;
+}
+
+.spec-row{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:8px;
+  align-items:center;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.spec-row:last-child{
+  border-bottom:0;
+}
+
+.spec-label{
+  color:#aaa;
+  font-size:10px;
+}
+
+.spec-value{
+  color:white;
+  font-size:11px;
+  font-weight:900;
+  text-align:right;
+}
+
+.copy-btn{
+  border:1px solid #333;
+  border-radius:8px;
+  background:#181818;
+  color:#888;
+  padding:5px 7px;
+  font-size:8px;
+}
 
 /* TODO */
-.todo-snapshot{background:linear-gradient(145deg,#141414,#0c0c0c);border:1px solid #3a2a1f;border-radius:20px;padding:14px;box-shadow:inset 3px 0 var(--orange)}
-.snap-head{display:flex;justify-content:space-between;margin-bottom:6px}.snap-head h3{margin:0;font-size:16px}.snap-count{font-size:9px;color:var(--yellow);font-weight:900}
-.todo-line{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
-.todo-line:last-child{border:0}.dot{width:9px;height:9px;border-radius:50%}.todo-title{font-size:12px;font-weight:900}.todo-meta{font-size:9px;color:#888;margin-top:3px}
 
-/* MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:flex-end;justify-content:center}
-.modal.show{display:flex}
-.sheet{width:min(760px,100%);background:#101010;border:1px solid #303030;border-radius:24px 24px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:91vh;overflow:auto}
-.sheet h2{margin:0 0 14px;color:var(--orange)}
-.field{margin-bottom:12px}.field label{display:block;font-size:9px;font-weight:900;color:#aaa;margin-bottom:6px;text-transform:uppercase}
-.field input,.field select,.field textarea{width:100%;background:#181818;color:#fff;border:1px solid #333;border-radius:12px;padding:12px}
-.field textarea{min-height:75px}.checks{display:flex;flex-wrap:wrap;gap:8px}
-.checkchip{display:flex;gap:5px;align-items:center;background:#181818;border:1px solid #333;border-radius:999px;padding:7px 9px;font-size:9px}
-.sheet-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.sheet-actions button{border-radius:13px;padding:12px;border:1px solid #333;background:#171717;color:#fff;font-weight:900}.sheet-actions .save{background:var(--orange);border-color:var(--orange)}
+.todo-snapshot{
+  background:linear-gradient(145deg,#141414,#0c0c0c);
+  border:1px solid #3a2a1f;
+  border-radius:20px;
+  padding:14px;
+  box-shadow:inset 3px 0 var(--orange);
+}
 
-/* NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.97);border-top:1px solid #292929;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
-.bottom-inner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(6,1fr)}
-.nav{background:transparent;color:#777;border:0;min-height:65px}.nav.active{color:var(--orange)}.nav span{display:block}.nav .ico{font-size:20px;margin-bottom:4px}.nav small{font-size:7.5px;font-weight:900}
+.snap-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-@media(min-width:650px){
-  .future-grid{grid-template-columns:1fr 1fr}
-  .bike-grid{grid-template-columns:1fr 1fr}
-  .bike-grid .bike-hero:first-child{grid-column:1/-1}
+.snap-head h3{
+  margin:0;
+  font-size:16px;
+}
+
+.snap-count{
+  font-size:9px;
+  color:var(--yellow);
+  font-weight:900;
+}
+
+.todo-card{
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:11px;
+  margin-bottom:8px;
+}
+
+.todo-line{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:9px;
+  align-items:center;
+}
+
+.drag-handle{
+  color:#777;
+  font-size:20px;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+}
+
+.todo-title{
+  font-size:12px;
+  font-weight:900;
+}
+
+.todo-meta{
+  color:#888;
+  font-size:9px;
+  margin-top:3px;
+}
+
+.todo-badge{
+  border:1px solid #333;
+  border-radius:999px;
+  padding:5px 7px;
+  color:#bbb;
+  font-size:8px;
+}
+
+.todo-actions{
+  display:flex;
+  gap:6px;
+  margin-top:9px;
+  flex-wrap:wrap;
+}
+
+.todo-card.dragging{
+  opacity:.55;
+  border-color:var(--orange);
+}
+
+.todo-section-title{
+  margin:19px 2px 8px;
+  font-size:12px;
+  color:#aaa;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+/* CHECKLIST */
+
+.check-row{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.check-row:last-child{
+  border-bottom:0;
+}
+
+.check-row input{
+  width:20px;
+  height:20px;
+}
+
+.check-text{
+  font-size:12px;
+}
+
+/* TBH */
+
+.tbh-hero{
+  border-radius:20px;
+  padding:17px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(135deg,rgba(255,90,0,.08),transparent 50%),
+    #111;
+  margin-bottom:12px;
+}
+
+.tbh-hero h2{
+  margin:0;
+  font-size:25px;
+}
+
+.tbh-hero p{
+  margin:4px 0 0;
+  color:#999;
+  font-size:11px;
+}
+
+/* SETTINGS */
+
+.setting-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.toggle{
+  width:46px;
+  height:26px;
+  background:#333;
+  border-radius:999px;
+  position:relative;
+  cursor:pointer;
+}
+
+.toggle.on{
+  background:var(--orange);
+}
+
+.toggle-knob{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:white;
+  position:absolute;
+  top:3px;
+  left:3px;
+  transition:.15s;
+}
+
+.toggle.on .toggle-knob{
+  left:23px;
+}
+
+/* MODALS */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:300;
+  background:rgba(0,0,0,.80);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.sheet{
+  width:min(760px,100%);
+  max-height:88vh;
+  overflow:auto;
+  background:#101010;
+  border:1px solid #303030;
+  border-radius:24px 24px 0 0;
+  padding:18px 16px calc(20px + env(safe-area-inset-bottom));
+}
+
+.sheet h2{
+  margin:0 0 14px;
+  color:var(--orange);
+}
+
+.field{
+  margin-bottom:12px;
+}
+
+.field label{
+  display:block;
+  color:#aaa;
+  font-size:9px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  color:white;
+  background:#181818;
+  border:1px solid #333;
+  border-radius:12px;
+  padding:12px;
+}
+
+.field textarea{
+  min-height:70px;
+}
+
+.sheet-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.sheet-actions button{
+  border-radius:13px;
+  padding:12px;
+  border:1px solid #333;
+  background:#171717;
+  color:white;
+}
+
+.sheet-actions .save{
+  background:var(--orange);
+  border-color:var(--orange);
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(8,8,8,.97);
+  border-top:1px solid #292929;
+  z-index:100;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+
+.bottom-inner{
+  max-width:760px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+}
+
+.nav{
+  min-height:65px;
+  background:transparent;
+  border:0;
+  color:#777;
+}
+
+.nav.active{
+  color:var(--orange);
+}
+
+.nav span{
+  display:block;
+}
+
+.nav .ico{
+  font-size:20px;
+  margin-bottom:4px;
+}
+
+.nav small{
+  font-size:7.5px;
+  font-weight:900;
+}
+
+@media(max-width:400px){
+  .weekend-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .action-grid{
+    grid-template-columns:repeat(5,1fr);
+  }
+
+  .action small{
+    font-size:6.5px;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="app">
 
 <header class="header">
-  <div>
-    <div class="logo"><span class="moto">MOTO</span><span class="hq">HQ</span></div>
-    <div class="logo-sub">THE HUB • V6</div>
+
+<div>
+  <div class="logo-main">
+    <span class="logo-mid">MIDPACK</span>
+    <span class="logo-pack"> SYNDICATE</span>
   </div>
-  <button class="header-btn" onclick="openSimple('settings')">⚙</button>
+
+  <div class="logo-sub">THE HUB</div>
+</div>
+
+<button class="header-btn" onclick="openSettings()">⚙</button>
+
 </header>
 
+
 <!-- HUB -->
+
 <main id="hub" class="page active">
-  <section class="hero">
-    <div>
-      <div class="eyebrow">MIDPACK SYNDICATE</div>
-      <h1>Ride something.</h1>
-      <p>Track. Dirt. Trails. MotoHQ. Repeat.</p>
-    </div>
-  </section>
 
-  <div class="section-title">5 Weekend Lookahead</div>
-  <div id="weekends" class="future-grid"></div>
+<section class="hero">
 
-  <div class="section-title">The Garage</div>
-  <div class="bike-grid" id="garageCards"></div>
+<div>
+  <div class="eyebrow">MIDPACK FOR LIFE</div>
+  <h1>Ride something.</h1>
+  <p>Track. Dirt. Trails. Bike Hole. Repeat.</p>
+</div>
 
-  <div class="section-title">Quick Actions</div>
-  <div class="quick-grid">
-    <button class="quick" onclick="openSimple('maintenance')"><span class="icon">🔧</span><span class="label">MAINTENANCE</span></button>
-    <button class="quick" onclick="openListPage('shopping')"><span class="icon">🛒</span><span class="label">SHOPPING</span></button>
-    <button class="quick" onclick="showPage('events')"><span class="icon">🏁</span><span class="label">EVENTS</span></button>
-    <button class="quick" onclick="openSimple('checklists')"><span class="icon">✅</span><span class="label">CHECKLISTS</span></button>
-  </div>
+</section>
 
-  <div class="section-title">MotoHQ ToDo</div>
-  <div class="todo-snapshot">
-    <div class="snap-head">
-      <h3>Good things to do tonight</h3>
-      <span id="snapshotCount" class="snap-count"></span>
-    </div>
-    <div id="todoSnapshot"></div>
-    <button class="primary-btn" style="width:100%;margin-top:10px" onclick="openTodo()">+ ADD MY OWN TODO</button>
-  </div>
+
+<div class="section-title">Near Future</div>
+
+<div id="weekendGrid" class="weekend-grid"></div>
+
+
+<div style="margin-top:10px">
+<button class="add-btn" onclick="openWeekendModal()">+ ADD A RIDE</button>
+</div>
+
+
+<div class="section-title">Good things to do tonight</div>
+
+<div class="todo-snapshot" onclick="showPage('todo')">
+
+<div class="snap-head">
+
+<h3>Moto stuff that doesn't require a purchase</h3>
+
+<span id="snapshotCount" class="snap-count"></span>
+
+</div>
+
+<div id="todoSnapshot"></div>
+
+</div>
+
+
+<div class="section-title">The Garage</div>
+
+<div class="bike-grid">
+
+<div class="bike-hero" onclick="openBike('daisy')">
+
+<img src="images/daisy.png">
+
+<div class="bike-overlay"></div>
+
+<div class="bike-info">
+
+<div>
+  <div class="bike-name daisy-color">DAISY</div>
+  <div class="bike-model">2024 KTM 990 DUKE • TRACK ONLY</div>
+</div>
+
+<div class="status">● READY</div>
+
+</div>
+
+</div>
+
+
+<div class="bike-hero" onclick="openBike('reba')">
+
+<img src="images/reba.png">
+
+<div class="bike-overlay"></div>
+
+<div class="bike-info">
+
+<div>
+  <div class="bike-name reba-color">REBA</div>
+  <div class="bike-model">2025 KTM 500 EXC-F CHAMPIONSHIP EDITION</div>
+</div>
+
+<div class="status">● READY</div>
+
+</div>
+
+</div>
+
+
+<div class="bike-hero" onclick="openBike('sue')">
+
+<img src="images/sue.png">
+
+<div class="bike-overlay"></div>
+
+<div class="bike-info">
+
+<div>
+  <div class="bike-name sue-color">SUE</div>
+  <div class="bike-model">2020 TREK FUEL EX 8</div>
+</div>
+
+<div class="status">● READY</div>
+
+</div>
+
+</div>
+
+</div>
+
 </main>
+
 
 <!-- BIKES -->
+
 <main id="bikes" class="page">
-  <div class="page-title"><h1>BIKES</h1></div>
-  <div class="bike-grid" id="bikeCards"></div>
+
+<div class="page-title">
+<h1>BIKES</h1>
+</div>
+
+<div class="bike-grid">
+
+<div class="bike-hero" onclick="openBike('daisy')">
+<img src="images/daisy.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name daisy-color">DAISY</div>
+<div class="bike-model">2024 KTM 990 DUKE</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+<div class="bike-hero" onclick="openBike('reba')">
+<img src="images/reba.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name reba-color">REBA</div>
+<div class="bike-model">2025 KTM 500 EXC-F</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+<div class="bike-hero" onclick="openBike('sue')">
+<img src="images/sue.png">
+<div class="bike-overlay"></div>
+<div class="bike-info">
+<div>
+<div class="bike-name sue-color">SUE</div>
+<div class="bike-model">2020 TREK FUEL EX 8</div>
+</div>
+<div class="status">● READY</div>
+</div>
+</div>
+
+</div>
+
 </main>
+
 
 <!-- BIKE DETAIL -->
+
 <main id="bikeDetail" class="page">
-  <div class="subhead"><button class="back" onclick="showPage('bikes')">←</button><h2 id="bikeTitle"></h2></div>
-  <div class="bike-detail-hero">
-    <img id="bikeImage">
-    <div class="detail-overlay"></div>
-    <div class="detail-name"><h1 id="detailName"></h1><p id="detailModel"></p></div>
-  </div>
-  <div class="stats">
-    <div class="stat"><strong id="s1"></strong><small id="sl1"></small></div>
-    <div class="stat"><strong id="s2"></strong><small id="sl2"></small></div>
-    <div class="stat"><strong id="s3"></strong><small id="sl3"></small></div>
-  </div>
-  <button id="finishRideBtn" class="ride-button" onclick="openRideReport()">🏁 FINISH RIDE</button>
-  <div class="action-grid">
-    <button class="action" onclick="bikeSection('maintenance')"><span class="icon">🔧</span><small>MAINTENANCE</small></button>
-    <button class="action" onclick="bikeSection('mods')"><span class="icon">⚙️</span><small>MODS / SETUP</small></button>
-    <button class="action" onclick="bikeSection('tires')"><span class="icon">🛞</span><small>TIRES</small></button>
-    <button class="action" onclick="bikeSection('history')"><span class="icon">📈</span><small>RIDE HISTORY</small></button>
-  </div>
-  <div id="bikeContent"></div>
+
+<div class="subhead">
+
+<button class="back" onclick="showPage('bikes')">←</button>
+
+<h2 id="bikeTitle"></h2>
+
+</div>
+
+
+<div class="bike-detail-hero">
+
+<img id="bikeImage">
+
+<div class="detail-overlay"></div>
+
+<div class="detail-name">
+
+<h1 id="detailName"></h1>
+
+<p id="detailModel"></p>
+
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<strong id="stat1"></strong>
+<small id="stat1label"></small>
+</div>
+
+<div class="stat">
+<strong id="stat2"></strong>
+<small id="stat2label"></small>
+</div>
+
+<div class="stat">
+<strong id="stat3"></strong>
+<small id="stat3label"></small>
+</div>
+
+</div>
+
+
+<div class="action-grid">
+
+<button class="action" onclick="bikeSection('maintenance')">
+<span class="icon">🔧</span>
+<small>MAINT</small>
+</button>
+
+<button class="action" onclick="bikeSection('mods')">
+<span class="icon">⚙️</span>
+<small>SETUP</small>
+</button>
+
+<button class="action" onclick="bikeSection('tires')">
+<span class="icon">🛞</span>
+<small>TIRES</small>
+</button>
+
+<button class="action" onclick="bikeSection('specs')">
+<span class="icon">📋</span>
+<small>SPECS</small>
+</button>
+
+<button class="action" onclick="bikeSection('checklist')">
+<span class="icon">✅</span>
+<small>CHECKLIST</small>
+</button>
+
+</div>
+
+
+<div id="bikeContent"></div>
+
 </main>
 
-<!-- MOTOHQ -->
-<main id="motohq" class="page">
-  <div class="page-title"><h1>MOTOHQ</h1></div>
-  <div class="panel">
-    <h3>2003 Forest River Trackhouse</h3>
-    <div class="row"><strong>Electrical</strong><span>30A</span></div>
-    <div class="row"><strong>Axles</strong><span>2</span></div>
-    <div class="row"><strong>Rooftop AC</strong><span>18K BTU</span></div>
-  </div>
-  <div class="list-head"><h3>Repairs / Projects</h3><button class="add-btn" onclick="addGeneric('repairs')">+ ADD</button></div>
-  <div id="repairList" class="panel"></div>
+
+<!-- TBH -->
+
+<main id="tbh" class="page">
+
+<div class="page-title">
+<h1>THE BIKE HOLE</h1>
+</div>
+
+<div class="tbh-hero">
+
+<div class="eyebrow">TBH</div>
+
+<h2>2003 Forest River Toy Hauler</h2>
+
+<p>Old school. Simple. Functional. The cool shit is inside.</p>
+
+</div>
+
+
+<div class="panel">
+
+<h3>Current Systems</h3>
+
+<div class="row">
+<strong>30A Electrical</strong>
+<span class="green">ACTIVE</span>
+</div>
+
+<div class="row">
+<strong>18K Furrion A/C</strong>
+<span class="green">ACTIVE</span>
+</div>
+
+<div class="row">
+<strong>Fresh Water Tanks / Pump</strong>
+<span class="yellow">CHECK</span>
+</div>
+
+<div class="row">
+<strong>Built-in Generator</strong>
+<span class="yellow">TEST / DIAGNOSE</span>
+</div>
+
+<div class="row">
+<strong>Predator 5000</strong>
+<span class="green">ACTIVE</span>
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h3>TBH ToDo</h3>
+
+<div class="row">
+<strong>Locate fresh-water tank, pump & drains</strong>
+<span class="yellow">30 MIN</span>
+</div>
+
+<div class="row">
+<strong>Drain / sanitize fresh-water system</strong>
+<span>PLANNED</span>
+</div>
+
+<div class="row">
+<strong>Replace garage-bedroom divider</strong>
+<span>ACCORDION DOOR</span>
+</div>
+
+<div class="row">
+<strong>Test built-in generator</strong>
+<span class="yellow">HIGH</span>
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h3>Predator 5000 Maintenance</h3>
+
+<div class="row">
+<strong>Initial break-in / first oil service</strong>
+<span class="yellow">TRACK HOURS</span>
+</div>
+
+<div class="row">
+<strong>Engine oil</strong>
+<span>TRACK HOURS / DATE</span>
+</div>
+
+<div class="row">
+<strong>Air filter</strong>
+<span>INSPECT</span>
+</div>
+
+<div class="row">
+<strong>Spark plug</strong>
+<span>INSPECT / REPLACE</span>
+</div>
+
+<div class="row">
+<strong>Fuel system</strong>
+<span>STABILIZE / DRAIN AS NEEDED</span>
+</div>
+
+<div class="row">
+<strong>Battery / electric start</strong>
+<span>CHECK</span>
+</div>
+
+<p style="color:#777;font-size:10px;line-height:1.4;margin:12px 0 0">
+V6 tracks generator maintenance here. Exact manufacturer intervals can be
+plugged in once we finish the service schedule reference.
+</p>
+
+</div>
+
 </main>
+
 
 <!-- EVENTS -->
+
 <main id="events" class="page">
-  <div class="page-title"><h1>EVENTS</h1><button class="add-btn" onclick="addGeneric('events')">+ ADD</button></div>
-  <div id="eventList"></div>
+
+<div class="page-title">
+<h1>EVENTS</h1>
+</div>
+
+<div class="panel">
+
+<div class="row">
+<div>
+<strong>🏁 Hallett</strong><br>
+<small>Daisy + MOTOHQ</small>
+</div>
+<span class="orange">TRACKDAY</span>
+</div>
+
+<div class="row">
+<div>
+<strong>🏆 MX Championship</strong><br>
+<small>TBH camping weekend</small>
+</div>
+<span class="yellow">TRIP</span>
+</div>
+
+<div class="row">
+<div>
+<strong>🚵 OZ Bike Park</strong><br>
+<small>Sue</small>
+</div>
+<span class="purple">MTB</span>
+</div>
+
+</div>
+
 </main>
+
 
 <!-- TODO -->
+
 <main id="todo" class="page">
-  <div class="page-title"><h1>MOTOHQ TODO</h1><button class="add-btn" onclick="openTodo()">+ ADD</button></div>
-  <div class="panel"><p class="note" style="margin:0">Your after-work MotoHQ list. Add whatever you want directly from here.</p></div>
-  <div id="todoPage"></div>
+
+<div class="page-title">
+
+<h1>TODO</h1>
+
+<button class="add-btn" onclick="openTodoModal()">+ ADD</button>
+
+</div>
+
+<div class="panel">
+
+<p style="margin:0;color:#aaa;font-size:12px">
+Drag the <strong>☰</strong> handle to set the order yourself.
+Your thumb is the prioritization algorithm.
+</p>
+
+</div>
+
+<div id="todoPageContent"></div>
+
 </main>
+
 
 <!-- MORE -->
+
 <main id="more" class="page">
-  <div class="page-title"><h1>MORE</h1></div>
-  <div class="panel">
-    <div class="row" onclick="openSimple('maintenance')"><strong>🔧 Combined Maintenance</strong><span>›</span></div>
-    <div class="row" onclick="openSimple('checklists')"><strong>✅ Ride Checklists</strong><span>›</span></div>
-    <div class="row" onclick="openListPage('shopping')"><strong>🛒 Shopping List</strong><span>›</span></div>
-    <div class="row" onclick="openListPage('inventory')"><strong>📦 Parts Inventory</strong><span>›</span></div>
-    <div class="row" onclick="openListPage('gpx')"><strong>🗺 GPX Ride Library</strong><span>›</span></div>
-    <div class="row" onclick="openListPage('manuals')"><strong>📚 Manuals & Documents</strong><span>›</span></div>
-    <div class="row" onclick="openListPage('ridehistory')"><strong>📈 All Ride Reports</strong><span>›</span></div>
-  </div>
+
+<div class="page-title">
+<h1>MORE</h1>
+</div>
+
+<div class="panel">
+
+<div class="row">
+<strong>📈 Lap Times</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>📚 Manuals & Documents</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>🗺 GPX Ride Library</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>📦 Parts Inventory</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>🛒 Shopping</strong>
+<span>›</span>
+</div>
+
+<div class="row">
+<strong>🧠 MotoHQ Intel</strong>
+<span>COMING LATER</span>
+</div>
+
+</div>
+
 </main>
 
-<!-- INFO/LIST PAGE -->
-<main id="info" class="page">
-  <div class="subhead"><button class="back" onclick="goBack()">←</button><h2 id="infoTitle"></h2></div>
-  <div id="infoContent"></div>
+
+<!-- SETTINGS -->
+
+<main id="settings" class="page">
+
+<div class="subhead">
+
+<button class="back" onclick="goBack()">←</button>
+
+<h2>SETTINGS</h2>
+
+</div>
+
+<div class="panel">
+
+<div class="setting-row">
+
+<div>
+<strong>Ratchet Click</strong><br>
+<small>Subtle button sound</small>
+</div>
+
+<div id="soundToggle" class="toggle" onclick="toggleSound()">
+<div class="toggle-knob"></div>
+</div>
+
+</div>
+
+<div class="setting-row">
+
+<div>
+<strong>Version</strong>
+</div>
+
+<span>6.0</span>
+
+</div>
+
+</div>
+
 </main>
 
 </div>
 
-<!-- NAV -->
-<nav class="bottom-nav"><div class="bottom-inner">
-  <button class="nav active" data-page="hub"><span class="ico">⌂</span><small>HUB</small></button>
-  <button class="nav" data-page="bikes"><span class="ico">🏍️</span><small>BIKES</small></button>
-  <button class="nav" data-page="motohq"><span class="ico">🏕️</span><small>MOTOHQ</small></button>
-  <button class="nav" data-page="events"><span class="ico">🏁</span><small>EVENTS</small></button>
-  <button class="nav" data-page="todo"><span class="ico">✓</span><small>TODO</small></button>
-  <button class="nav" data-page="more"><span class="ico">•••</span><small>MORE</small></button>
-</div></nav>
 
-<!-- GENERAL MODAL -->
-<div id="modal" class="modal"><div class="sheet">
-  <h2 id="modalTitle"></h2>
-  <div id="modalBody"></div>
-  <div class="sheet-actions">
-    <button onclick="closeModal()">Cancel</button>
-    <button class="save" id="modalSave">Save</button>
-  </div>
-</div></div>
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+<div class="bottom-inner">
+
+<button class="nav active" data-page="hub">
+<span class="ico">⌂</span>
+<small>HUB</small>
+</button>
+
+<button class="nav" data-page="bikes">
+<span class="ico">🏍️</span>
+<small>BIKES</small>
+</button>
+
+<button class="nav" data-page="tbh">
+<span class="ico">🏕️</span>
+<small>TBH</small>
+</button>
+
+<button class="nav" data-page="events">
+<span class="ico">🏁</span>
+<small>EVENTS</small>
+</button>
+
+<button class="nav" data-page="todo">
+<span class="ico">✓</span>
+<small>TODO</small>
+</button>
+
+<button class="nav" data-page="more">
+<span class="ico">•••</span>
+<small>MORE</small>
+</button>
+
+</div>
+
+</nav>
+
+
+<!-- TODO MODAL -->
+
+<div id="todoModal" class="modal">
+
+<div class="sheet">
+
+<h2 id="todoModalTitle">Add ToDo</h2>
+
+<input id="editTodoId" type="hidden">
+
+<div class="field">
+<label>Task</label>
+<input id="todoTitleInput" placeholder="Move Daisy's bars forward">
+</div>
+
+<div class="field">
+<label>Machine / Area</label>
+<select id="todoMachine">
+<option>Daisy</option>
+<option>Reba</option>
+<option>Sue</option>
+<option>TBH</option>
+<option>MOTOHQ</option>
+<option>General</option>
+</select>
+</div>
+
+<div class="field">
+<label>Time</label>
+<select id="todoTime">
+<option value="10">10 min</option>
+<option value="20">20 min</option>
+<option value="30" selected>30 min</option>
+<option value="60">60 min</option>
+<option value="90">90+ min</option>
+</select>
+</div>
+
+<div class="field">
+<label>Parts / Cost</label>
+<select id="todoCost">
+<option value="free">No purchase needed</option>
+<option value="owned">Parts already owned</option>
+<option value="purchase">Purchase needed</option>
+</select>
+</div>
+
+<div class="field">
+<label>Notes</label>
+<textarea id="todoNotes"></textarea>
+</div>
+
+<div class="sheet-actions">
+
+<button onclick="closeTodoModal()">Cancel</button>
+
+<button class="save" onclick="saveTodo()">Save</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- WEEKEND MODAL -->
+
+<div id="weekendModal" class="modal">
+
+<div class="sheet">
+
+<h2>Weekend Plan</h2>
+
+<input id="weekendIndex" type="hidden">
+
+<div class="field">
+<label>Weekend</label>
+<select id="weekendSelect"></select>
+</div>
+
+<div class="field">
+<label>Type</label>
+<select id="weekendType">
+<option value="trackday">Trackday</option>
+<option value="dirt">Dirt Bike</option>
+<option value="mtb">MTB</option>
+<option value="garage">Garage Weekend</option>
+<option value="trip">Trip / Camping</option>
+<option value="open">Open</option>
+</select>
+</div>
+
+<div class="field">
+<label>Title</label>
+<input id="weekendTitleInput" placeholder="Hot Springs Off-Road Park">
+</div>
+
+<div class="field">
+<label>Machine</label>
+<select id="weekendMachine">
+<option>Daisy</option>
+<option>Reba</option>
+<option>Sue</option>
+<option>TBH</option>
+<option>MOTOHQ</option>
+<option>None</option>
+</select>
+</div>
+
+<div class="field">
+<label>Short Note</label>
+<textarea id="weekendNote"></textarea>
+</div>
+
+<div class="field">
+<label>
+<input id="weekendBooked" type="checkbox">
+ Booked?
+</label>
+</div>
+
+<div class="sheet-actions">
+
+<button onclick="closeWeekendModal()">Cancel</button>
+
+<button class="save" onclick="saveWeekend()">Save</button>
+
+</div>
+
+</div>
+
+</div>
+
 
 <script>
-/* =========================================================
-   V6 CORE / STORAGE
-========================================================= */
-const $=id=>document.getElementById(id);
-const store=(k,v)=>localStorage.setItem('motohq_v6_'+k,JSON.stringify(v));
-const load=(k,d)=>{try{const x=JSON.parse(localStorage.getItem('motohq_v6_'+k));return x??d}catch(e){return d}};
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-let previousPage='hub',currentBike='daisy';
+
+/* ------------------------------
+   STORAGE
+------------------------------ */
+
+const TODO_KEY="midpack_v6_todos";
+const WEEKEND_KEY="midpack_v6_weekends";
+const SOUND_KEY="midpack_v6_sound";
+const CHECK_KEY="midpack_v6_checks";
+
+let previousPage="hub";
+let currentBike="daisy";
+
+
+/* ------------------------------
+   SOUND
+------------------------------ */
+
+let soundEnabled=
+localStorage.getItem(SOUND_KEY)==="true";
+
+function ratchetClick(){
+
+if(!soundEnabled) return;
+
+const ctx=
+new (window.AudioContext||window.webkitAudioContext)();
+
+const oscillator=ctx.createOscillator();
+const gain=ctx.createGain();
+
+oscillator.type="square";
+oscillator.frequency.setValueAtTime(130,ctx.currentTime);
+
+gain.gain.setValueAtTime(.025,ctx.currentTime);
+gain.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+.025);
+
+oscillator.connect(gain);
+gain.connect(ctx.destination);
+
+oscillator.start();
+oscillator.stop(ctx.currentTime+.03);
+
+}
+
+document.addEventListener("click",e=>{
+
+if(e.target.closest("button,.weekend-card,.bike-hero,.toggle")){
+ratchetClick();
+}
+
+});
+
+
+function toggleSound(){
+
+soundEnabled=!soundEnabled;
+
+localStorage.setItem(
+SOUND_KEY,
+String(soundEnabled)
+);
+
+renderSoundToggle();
+
+}
+
+
+function renderSoundToggle(){
+
+document
+.getElementById("soundToggle")
+.classList
+.toggle("on",soundEnabled);
+
+}
+
+
+/* ------------------------------
+   NAVIGATION
+------------------------------ */
+
+const pages=document.querySelectorAll(".page");
+const navs=document.querySelectorAll(".nav");
 
 function showPage(id){
-  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  $(id).classList.add('active');
-  if(id!=='info'&&id!=='bikeDetail') previousPage=id;
-  document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.page===id));
-  if(id==='hub'){renderWeekends();renderSnapshot()}
-  if(id==='todo')renderTodos();
-  if(id==='events')renderEvents();
-  if(id==='motohq')renderRepairs();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-document.querySelectorAll('.nav').forEach(n=>n.onclick=()=>showPage(n.dataset.page));
-function goBack(){showPage(previousPage)}
-function closeModal(){$('modal').classList.remove('show')}
-function modal(title,body,save){
-  $('modalTitle').textContent=title;$('modalBody').innerHTML=body;
-  $('modalSave').onclick=save;$('modal').classList.add('show');
+
+pages.forEach(
+p=>p.classList.remove("active")
+);
+
+document
+.getElementById(id)
+.classList.add("active");
+
+if(id!=="bikeDetail" && id!=="settings"){
+previousPage=id;
 }
 
-/* =========================================================
-   BIKES
-========================================================= */
-const bikes={
-  daisy:{name:'DAISY',model:'2024 KTM 990 DUKE • TRACK ONLY',image:'daisy.png',color:'#ff5a00'},
-  reba:{name:'REBA',model:'2025 KTM 500 EXC-F • TRAIL / DUAL SPORT',image:'reba.png',color:'#2478ff'},
-  sue:{name:'SUE',model:'2020 TREK FUEL EX 8 • MTB',image:'sue.png',color:'#a34bff'}
+navs.forEach(n=>{
+
+n.classList.toggle(
+"active",
+n.dataset.page===id
+);
+
+});
+
+if(id==="todo"){
+renderTodoPage();
+}
+
+if(id==="hub"){
+renderWeekends();
+renderTodoSnapshot();
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+navs.forEach(n=>{
+
+n.onclick=()=>showPage(
+n.dataset.page
+);
+
+});
+
+function goBack(){
+showPage(previousPage);
+}
+
+function openSettings(){
+
+previousPage=
+document.querySelector(".page.active").id;
+
+showPage("settings");
+
+renderSoundToggle();
+
+}
+
+
+/* ------------------------------
+   WEEKENDS
+------------------------------ */
+
+const roasts=[
+
+"Are you just gonna sit around all day or what?",
+
+"Get the fuck up and do something.",
+
+"Yeah, I guess we're losers now.",
+
+"Cool. Big plans to stare at the ceiling?",
+
+"There are motorcycles literally sitting there.",
+
+"You own all this shit for a reason.",
+
+"Open weekend detected. Suspicious behavior.",
+
+"So... we're just not gonna ride anything?",
+
+"This is how couch people start.",
+
+"At minimum, go annoy Ellie somewhere scenic.",
+
+"Garage weekend counts. Quit making excuses.",
+
+"You have three bikes. Figure it out.",
+
+"No plan? Fine. But don't make it weird.",
+
+"This weekend appears dangerously unmotorcycled.",
+
+"Midpack Syndicate does not endorse this level of inactivity."
+
+];
+
+
+function getNextFourWeekends(){
+
+const now=new Date();
+
+const day=now.getDay();
+
+const daysUntilSaturday=
+(6-day+7)%7;
+
+const first=
+new Date(
+now.getFullYear(),
+now.getMonth(),
+now.getDate()+daysUntilSaturday
+);
+
+return Array.from({length:4},(_,i)=>{
+
+const sat=new Date(first);
+
+sat.setDate(
+first.getDate()+(i*7)
+);
+
+const sun=new Date(sat);
+
+sun.setDate(
+sat.getDate()+1
+);
+
+return {
+start:sat,
+end:sun
 };
-function bikeCard(k){
- const b=bikes[k];
- return `<div class="bike-hero" onclick="openBike('${k}')"><img src="${b.image}" alt="${b.name}">
- <div class="bike-overlay"></div><div class="bike-info"><div><div class="bike-name" style="color:${b.color}">${b.name}</div>
- <div class="bike-model">${b.model}</div></div><div class="status">● READY</div></div></div>`;
-}
-$('garageCards').innerHTML=['daisy','reba','sue'].map(bikeCard).join('');
-$('bikeCards').innerHTML=['daisy','reba','sue'].map(bikeCard).join('');
 
-/* =========================================================
-   MAINTENANCE
-========================================================= */
-let maint=load('maintenance',{
- daisy:{oilTrackdays:1,totalTrackdaysLogged:0,tire:'Bridgestone S22',tireTrackdays:3},
- reba:{oilMiles:20,oilHours:0,totalMiles:0,totalHours:0},
- sue:{totalMiles:0,totalHours:0}
 });
-function saveMaint(){store('maintenance',maint)}
-function bikeStats(k){
- if(k==='daisy')return [[`${maint.daisy.oilTrackdays} / 3`,'TRACKDAYS ON OIL'],['1:38','HALLETT BEST'],[maint.daisy.tire,'CURRENT TIRE']];
- if(k==='reba')return [[`~${Math.round(maint.reba.oilMiles)} MI`,'SINCE OIL CHANGE'],[`${maint.reba.totalHours.toFixed(1)} H`,'LOGGED HOURS'],['TRAIL','PRIMARY USE']];
- return [[`${Math.round(maint.sue.totalMiles)} MI`,'LOGGED MILES'],[`${maint.sue.totalHours.toFixed(1)} H`,'LOGGED HOURS'],['MTB','PRIMARY USE']];
-}
-function openBike(k){
- currentBike=k;const b=bikes[k],s=bikeStats(k);
- $('bikeTitle').textContent=b.name;$('detailName').textContent=b.name;$('detailName').style.color=b.color;
- $('detailModel').textContent=b.model;$('bikeImage').src=b.image;
- for(let i=0;i<3;i++){ $('s'+(i+1)).textContent=s[i][0];$('sl'+(i+1)).textContent=s[i][1] }
- $('finishRideBtn').textContent=k==='daisy'?'🏁 FINISH TRACKDAY / LOG REPORT':'✓ FINISH RIDE / LOG REPORT';
- showPage('bikeDetail');bikeSection('maintenance');
-}
-function resetOil(k){
- if(!confirm(`Reset ${bikes[k].name} oil baseline?`))return;
- if(k==='daisy')maint.daisy.oilTrackdays=0;
- if(k==='reba'){maint.reba.oilMiles=0;maint.reba.oilHours=0}
- saveMaint();openBike(k);
-}
-function bikeSection(type){
- let h='';
- if(type==='maintenance'){
-  if(currentBike==='daisy'){
-   let n=maint.daisy.oilTrackdays;
-   h=`<div class="panel"><h3>Daisy Maintenance</h3>
-   <div class="row"><strong>Oil / filter</strong><span class="${n>=3?'red':n===2?'yellow':'green'}">${n} / 3 TRACKDAYS</span></div>
-   <div class="actions"><button class="mini-btn" onclick="resetOil('daisy')">RESET AFTER SERVICE</button></div>
-   <div class="row"><strong>Tires</strong><span>${esc(maint.daisy.tire)} • ${maint.daisy.tireTrackdays} trackdays</span></div>
-   <div class="row"><strong>Chain / tension / sprockets</strong><span class="yellow">INSPECT TRACKDAY</span></div>
-   <div class="row"><strong>Brake pads / discs / fluid</strong><span>INSPECT</span></div>
-   <div class="row"><strong>Coolant / air filter</strong><span>INSPECT</span></div>
-   <div class="row"><strong>Wheel / steering bearings</strong><span>INSPECT</span></div>
-   <div class="row"><strong>Fork / shock</strong><span>LEAK / CONDITION</span></div>
-   <div class="row"><strong>Safety-critical fasteners</strong><span class="yellow">TRACKDAY CHECK</span></div>
-   <div class="row"><strong>Valves / plugs / scheduled service</strong><span class="blue">KTM SCHEDULE</span></div>
-   <p class="note">Orange track interval: conservative. Blue items: KTM scheduled service. Usage-based service is not marked due from elapsed time alone.</p></div>`;
-  }else if(currentBike==='reba'){
-   h=`<div class="panel"><h3>Reba Maintenance</h3>
-   <div class="row"><strong>Oil / filter baseline</strong><span class="green">~${Math.round(maint.reba.oilMiles)} mi • ${maint.reba.oilHours.toFixed(1)} h</span></div>
-   <div class="actions"><button class="mini-btn" onclick="resetOil('reba')">RESET AFTER SERVICE</button></div>
-   <div class="row"><strong>Air filter</strong><span class="yellow">CONDITION-BASED</span></div>
-   <div class="row"><strong>Chain / sprockets</strong><span>TRAIL INSPECTION</span></div>
-   <div class="row"><strong>Spokes / wheels</strong><span>TRAIL INSPECTION</span></div>
-   <div class="row"><strong>Brakes / bearings / suspension</strong><span>INSPECT</span></div>
-   <div class="row"><strong>Valves / plug / KTM service</strong><span class="blue">OWNER MANUAL</span></div>
-   <p class="note">2025 KTM 500 EXC-F owner-manual schedule is the baseline; dusty, wet or severe trail use can justify earlier inspection.</p></div>`;
-  }else{
-   h=`<div class="panel"><h3>Sue Maintenance</h3>
-   <div class="row"><strong>Tires / pressure</strong><span>INSPECT</span></div>
-   <div class="row"><strong>Brake pads / lever feel</strong><span>INSPECT</span></div>
-   <div class="row"><strong>Chain / drivetrain</strong><span>CLEAN / LUBE</span></div>
-   <div class="row"><strong>Suspension / sag</strong><span>CHECK</span></div>
-   <div class="row"><strong>Axles / cockpit</strong><span>CHECK</span></div></div>`;
-  }
- }else if(type==='mods'){
-   renderBikeList('mods');return;
- }else if(type==='tires'){
-   if(currentBike==='daisy')h=`<div class="panel"><h3>Daisy Tires</h3><div class="row"><strong>${esc(maint.daisy.tire)}</strong><span>${maint.daisy.tireTrackdays} TRACKDAYS</span></div>
-   <div class="actions"><button class="add-btn" onclick="installDaisyTire()">+ INSTALL TIRE SET</button></div></div>`;
-   else h=`<div class="panel"><h3>${bikes[currentBike].name} Tires</h3><p class="note">Inspect condition and pressure before rides.</p><div class="actions"><button class="add-btn" onclick="addGeneric('tires_${currentBike}')">+ ADD TIRE NOTE</button></div></div>`;
- }else if(type==='history'){renderBikeHistory();return}
- $('bikeContent').innerHTML=h;
-}
-function installDaisyTire(){
- modal('Install Daisy Tire Set',`<div class="field"><label>Tire / Set</label><input id="tireName" placeholder="Michelin Power Cup 2"></div>`,()=>{
-  const x=$('tireName').value.trim();if(!x)return;maint.daisy.tire=x;maint.daisy.tireTrackdays=0;saveMaint();closeModal();openBike('daisy');bikeSection('tires');
- });
+
 }
 
-/* =========================================================
-   1 BACK + 4 AHEAD WEEKENDS
-========================================================= */
-function weekendDates(){
- const now=new Date(),day=now.getDay(),toSat=(6-day+7)%7;
- const nextSat=new Date(now);nextSat.setDate(now.getDate()+toSat);
- const out=[];
- for(let offset=-1;offset<=3;offset++){
-   const sat=new Date(nextSat);sat.setDate(nextSat.getDate()+offset*7);
-   const sun=new Date(sat);sun.setDate(sat.getDate()+1);
-   out.push({sat,sun});
- }
- return out;
+
+function weekendLabel(w){
+
+const opts={
+month:"short",
+day:"numeric"
+};
+
+return (
+w.start.toLocaleDateString("en-US",opts)
++
+"–"
++
+w.end.toLocaleDateString("en-US",opts)
+).toUpperCase();
+
 }
-function fmtWeekend(x){return `${x.sat.toLocaleDateString('en-US',{month:'short',day:'numeric'})}–${x.sun.toLocaleDateString('en-US',{day:'numeric'})}`.toUpperCase()}
-let weekends=load('weekends',null);
-if(!weekends||weekends.length!==5){
- weekends=weekendDates().map((d,i)=>({id:uid(),date:fmtWeekend(d),title:'OPEN WEEKEND',type:'OPEN',bike:'none',location:'',notes:'',booked:false,logged:false,previous:i===0}));
- store('weekends',weekends);
+
+
+function defaultWeekendData(){
+
+return getNextFourWeekends()
+.map((w,i)=>({
+
+id:"weekend_"+i,
+type:"open",
+title:"",
+machine:"None",
+note:"",
+booked:false,
+roast:
+roasts[
+Math.floor(
+Math.random()*roasts.length
+)
+]
+
+}));
+
 }
+
+
+function loadWeekends(){
+
+const raw=
+localStorage.getItem(WEEKEND_KEY);
+
+if(!raw){
+
+const defaults=
+defaultWeekendData();
+
+localStorage.setItem(
+WEEKEND_KEY,
+JSON.stringify(defaults)
+);
+
+return defaults;
+
+}
+
+try{
+
+let existing=
+JSON.parse(raw);
+
+if(existing.length!==4){
+
+existing=
+defaultWeekendData();
+
+localStorage.setItem(
+WEEKEND_KEY,
+JSON.stringify(existing)
+);
+
+}
+
+return existing;
+
+}
+
+catch{
+
+return defaultWeekendData();
+
+}
+
+}
+
+
+let weekends=loadWeekends();
+
+
+function storeWeekends(){
+
+localStorage.setItem(
+WEEKEND_KEY,
+JSON.stringify(weekends)
+);
+
+}
+
+
 function renderWeekends(){
- $('weekends').innerHTML=weekends.map((w,i)=>`
- <div class="future-card ${i===0?'previous ':''}${w.type!=='OPEN'?'planned':''}">
-  <div class="future-top"><div><div class="future-date">${i===0?'← PREVIOUS WEEKEND • ':''}${esc(w.date)}</div>
-  <div class="future-title">${esc(w.title)}</div>
-  <div class="future-detail">${esc(w.location)}${w.location&&w.notes?' • ':''}${esc(w.notes)}</div></div>
-  <span class="badge">${esc(w.type)}</span></div>
-  <label class="booked"><input type="checkbox" ${w.booked?'checked':''} onchange="setBooked(${i},this.checked)">Booked?</label>
-  <div class="actions"><button class="mini-btn" onclick="editWeekend(${i})">✎ EDIT</button>
-  ${w.type!=='OPEN'?`<button class="mini-btn delete" onclick="clearWeekend(${i})">CLEAR</button>`:''}</div>
-  ${i===0&&w.type!=='OPEN'&&!w.logged?`<button class="after-btn" onclick="afterWeekend(${i})">${w.bike==='daisy'?'🏁 ENTER AFTER TRACKDAY DATA':'✓ ENTER AFTER RIDE DATA'}</button>`:''}
-  ${i===0&&w.logged?`<div class="green" style="font-size:9px;font-weight:900;margin-top:10px">✓ AFTER-RIDE DATA LOGGED</div>`:''}
- </div>`).join('');
-}
-function setBooked(i,v){weekends[i].booked=v;store('weekends',weekends)}
-function editWeekend(i){
- const w=weekends[i];
- modal('Edit Weekend',`
- <div class="field"><label>Weekend</label><input id="wdate" value="${esc(w.date)}"></div>
- <div class="field"><label>Activity</label><input id="wtitle" value="${esc(w.title==='OPEN WEEKEND'?'':w.title)}" placeholder="Hot Springs ORP"></div>
- <div class="field"><label>Type</label><select id="wtype">
- ${['OPEN','TRACKDAY','TRAIL RIDE','MTB','MOTOHQ','CAMPING','PERSONAL','OTHER'].map(x=>`<option ${x===w.type?'selected':''}>${x}</option>`).join('')}</select></div>
- <div class="field"><label>Bike</label><select id="wbike">
- ${[['none','None'],['daisy','Daisy'],['reba','Reba'],['sue','Sue']].map(x=>`<option value="${x[0]}" ${x[0]===w.bike?'selected':''}>${x[1]}</option>`).join('')}</select></div>
- <div class="field"><label>Location</label><input id="wloc" value="${esc(w.location)}"></div>
- <div class="field"><label>Notes</label><textarea id="wnotes">${esc(w.notes)}</textarea></div>`,()=>{
-  const type=$('wtype').value;
-  Object.assign(w,{date:$('wdate').value,title:type==='OPEN'?'OPEN WEEKEND':($('wtitle').value.trim()||type),type,bike:$('wbike').value,location:$('wloc').value.trim(),notes:$('wnotes').value.trim(),logged:false});
-  store('weekends',weekends);closeModal();renderWeekends();
- });
-}
-function clearWeekend(i){if(!confirm('Clear this weekend?'))return;Object.assign(weekends[i],{title:'OPEN WEEKEND',type:'OPEN',bike:'none',location:'',notes:'',booked:false,logged:false});store('weekends',weekends);renderWeekends()}
-function afterWeekend(i){
- const w=weekends[i];
- if(w.bike==='daisy'||w.bike==='reba'||w.bike==='sue'){currentBike=w.bike;openRideReport(i)}
- else alert('Edit this weekend and choose Daisy, Reba or Sue first.');
+
+const dates=
+getNextFourWeekends();
+
+const grid=
+document.getElementById("weekendGrid");
+
+grid.innerHTML=
+weekends.map((w,i)=>{
+
+const open=
+w.type==="open";
+
+return `
+
+<div class="weekend-card ${w.type}">
+
+<div class="weekend-date">
+${weekendLabel(dates[i])}
+</div>
+
+${
+open
+?
+`
+
+<div class="weekend-type">
+OPEN WEEKEND
+</div>
+
+<div class="roast">
+"${w.roast}"
+</div>
+
+<div class="weekend-actions">
+
+<button class="small-btn"
+onclick="editWeekend(${i})">
++ ADD A RIDE
+</button>
+
+</div>
+
+`
+:
+`
+
+<div class="weekend-type">
+${typeName(w.type)}
+</div>
+
+<div class="weekend-title">
+${escapeHtml(w.title)}
+</div>
+
+<div class="weekend-note">
+${escapeHtml(w.machine)}
+${w.note ? " • "+escapeHtml(w.note) : ""}
+</div>
+
+<label class="booked">
+
+<input type="checkbox"
+${w.booked?"checked":""}
+onchange="toggleBooked(${i},this.checked)">
+
+BOOKED?
+
+</label>
+
+<div class="weekend-actions">
+
+<button class="small-btn"
+onclick="editWeekend(${i})">
+EDIT
+</button>
+
+<button class="small-btn red"
+onclick="clearWeekend(${i})">
+CLEAR
+</button>
+
+</div>
+
+`
 }
 
-/* =========================================================
-   RIDE / TRACKDAY REPORTS
-========================================================= */
-let rides=load('rides',[]);
-function openRideReport(weekendIndex=null){
- const k=currentBike,b=bikes[k],isD=k==='daisy';
- modal(isD?'Daisy — After Trackday Report':`${b.name} — After Ride Report`,`
- <div class="field"><label>${isD?'Track / Event':'Trail / Riding Area'}</label><input id="rplace" placeholder="${isD?'Hallett':'Mill Creek / OZ Bike Park'}"></div>
- <div class="field"><label>Date</label><input id="rdate" type="date" value="${new Date().toISOString().slice(0,10)}"></div>
- <div class="field"><label>Miles ridden</label><input id="rmiles" type="number" step=".1" placeholder="0"></div>
- <div class="field"><label>Riding hours</label><input id="rhours" type="number" step=".1" placeholder="0"></div>
- ${isD?`<div class="field"><label>Sessions ridden</label><input id="rsessions" type="number" placeholder="6"></div>
- <div class="field"><label>Best lap</label><input id="rlap" placeholder="1:38.0"></div>
- <div class="field"><label>Cold / Hot pressures</label><input id="rpressures" placeholder="F/R pressures"></div>
- <div class="field"><label>Track / suspension / setup notes</label><textarea id="rsetup"></textarea></div>`:
- `<div class="field"><label>Difficulty / trail notes</label><input id="rdifficulty" placeholder="Easy / moderate / technical"></div>`}
- <div class="field"><label>Conditions</label><div class="checks">
- ${['Normal','Dusty','Muddy','Wet','Rocky / Technical','Hot'].map(x=>`<label class="checkchip"><input type="checkbox" name="cond" value="${x}">${x}</label>`).join('')}
- </div></div>
- <div class="field"><label>Ride Notes</label><textarea id="rnotes" placeholder="Anything worth remembering?"></textarea></div>`,()=>{
-   const miles=Number($('rmiles').value)||0,hours=Number($('rhours').value)||0;
-   const conditions=[...document.querySelectorAll('input[name=cond]:checked')].map(x=>x.value);
-   const report={id:uid(),bike:k,date:$('rdate').value,place:$('rplace').value.trim(),miles,hours,conditions,notes:$('rnotes').value.trim(),
-     type:isD?'Trackday':'Trail / Ride',
-     sessions:isD?(Number($('rsessions').value)||0):null,
-     bestLap:isD?$('rlap').value.trim():'',
-     pressures:isD?$('rpressures').value.trim():'',
-     setup:isD?$('rsetup').value.trim():'',
-     difficulty:!isD?$('rdifficulty').value.trim():''
-   };
-   rides.unshift(report);store('rides',rides);
-   if(k==='daisy'){maint.daisy.oilTrackdays++;maint.daisy.tireTrackdays++;maint.daisy.totalTrackdaysLogged++}
-   if(k==='reba'){maint.reba.oilMiles+=miles;maint.reba.oilHours+=hours;maint.reba.totalMiles+=miles;maint.reba.totalHours+=hours}
-   if(k==='sue'){maint.sue.totalMiles+=miles;maint.sue.totalHours+=hours}
-   saveMaint();
-   if(weekendIndex!==null){weekends[weekendIndex].logged=true;store('weekends',weekends)}
-   closeModal();renderWeekends();
-   if($('bikeDetail').classList.contains('active'))openBike(k);
-   alert('Ride report saved. Maintenance counters updated.');
- });
-}
-function rideCard(r){
- return `<div class="list-item"><div class="list-top"><div class="list-title" style="color:${bikes[r.bike].color}">${bikes[r.bike].name} • ${esc(r.place||r.type)}</div><span class="badge">${esc(r.date)}</span></div>
- <div class="list-meta">${esc(r.type)} • ${r.miles} mi • ${r.hours} h${r.bestLap?' • Best '+esc(r.bestLap):''}${r.conditions?.length?' • '+esc(r.conditions.join(', ')):''}</div>
- ${r.notes?`<div class="list-meta">${esc(r.notes)}</div>`:''}
- <div class="actions"><button class="mini-btn delete" onclick="deleteRide('${r.id}')">DELETE</button></div></div>`;
-}
-function deleteRide(id){
- if(!confirm('Delete this ride report? Counters will NOT automatically roll backward.'))return;
- rides=rides.filter(r=>r.id!==id);store('rides',rides);renderBikeHistory();
-}
-function renderBikeHistory(){
- const x=rides.filter(r=>r.bike===currentBike);
- $('bikeContent').innerHTML=`<div class="list-head"><h3>${bikes[currentBike].name} Ride History</h3><button class="add-btn" onclick="openRideReport()">+ ADD</button></div>
- <div class="panel">${x.length?x.map(rideCard).join(''):'<div class="empty">No reports yet.</div>'}</div>`;
+</div>
+
+`;
+
+}).join("");
+
+populateWeekendSelect();
+
 }
 
-/* =========================================================
-   TODO — FULLY EDITABLE FROM MOTOHQ
-========================================================= */
-let todos=load('todos',[
- {id:uid(),title:'Safety-wire prep on Daisy',machine:'Daisy',time:30,cost:'owned',priority:'normal',notes:'Start with easy locations.',done:false},
- {id:uid(),title:'Test generator under load',machine:'MotoHQ',time:30,cost:'free',priority:'high',notes:'Before next camping weekend.',done:false},
- {id:uid(),title:'Measure Reba rear sag',machine:'Reba',time:30,cost:'owned',priority:'normal',notes:'',done:false}
+
+function typeName(type){
+
+return {
+trackday:"TRACKDAY",
+dirt:"DIRT BIKE",
+mtb:"MTB",
+garage:"GARAGE WEEKEND",
+trip:"TRIP / CAMPING",
+open:"OPEN"
+}[type];
+
+}
+
+
+function populateWeekendSelect(){
+
+const select=
+document.getElementById("weekendSelect");
+
+if(!select) return;
+
+select.innerHTML=
+getNextFourWeekends()
+.map((w,i)=>
+`<option value="${i}">
+${weekendLabel(w)}
+</option>`
+)
+.join("");
+
+}
+
+
+function openWeekendModal(){
+
+populateWeekendSelect();
+
+document
+.getElementById("weekendIndex")
+.value="";
+
+document
+.getElementById("weekendTitleInput")
+.value="";
+
+document
+.getElementById("weekendNote")
+.value="";
+
+document
+.getElementById("weekendType")
+.value="dirt";
+
+document
+.getElementById("weekendMachine")
+.value="Reba";
+
+document
+.getElementById("weekendBooked")
+.checked=false;
+
+document
+.getElementById("weekendModal")
+.classList.add("show");
+
+}
+
+
+function editWeekend(index){
+
+const w=weekends[index];
+
+populateWeekendSelect();
+
+document
+.getElementById("weekendIndex")
+.value=index;
+
+document
+.getElementById("weekendSelect")
+.value=index;
+
+document
+.getElementById("weekendType")
+.value=w.type==="open"?"dirt":w.type;
+
+document
+.getElementById("weekendTitleInput")
+.value=w.title;
+
+document
+.getElementById("weekendMachine")
+.value=w.machine==="None"?"Reba":w.machine;
+
+document
+.getElementById("weekendNote")
+.value=w.note;
+
+document
+.getElementById("weekendBooked")
+.checked=w.booked;
+
+document
+.getElementById("weekendModal")
+.classList.add("show");
+
+}
+
+
+function closeWeekendModal(){
+
+document
+.getElementById("weekendModal")
+.classList.remove("show");
+
+}
+
+
+function saveWeekend(){
+
+let index=
+document
+.getElementById("weekendIndex")
+.value;
+
+if(index===""){
+
+index=
+Number(
+document
+.getElementById("weekendSelect")
+.value
+);
+
+}
+
+else{
+
+index=Number(index);
+
+}
+
+
+const type=
+document
+.getElementById("weekendType")
+.value;
+
+
+weekends[index]={
+
+...weekends[index],
+
+type:type,
+
+title:
+document
+.getElementById("weekendTitleInput")
+.value.trim(),
+
+machine:
+document
+.getElementById("weekendMachine")
+.value,
+
+note:
+document
+.getElementById("weekendNote")
+.value.trim(),
+
+booked:
+document
+.getElementById("weekendBooked")
+.checked
+
+};
+
+
+if(type==="open"){
+
+weekends[index].title="";
+weekends[index].machine="None";
+weekends[index].note="";
+weekends[index].booked=false;
+
+weekends[index].roast=
+roasts[
+Math.floor(
+Math.random()*roasts.length
+)
+];
+
+}
+
+
+storeWeekends();
+
+closeWeekendModal();
+
+renderWeekends();
+
+}
+
+
+function clearWeekend(index){
+
+weekends[index]={
+
+id:"weekend_"+index,
+
+type:"open",
+
+title:"",
+
+machine:"None",
+
+note:"",
+
+booked:false,
+
+roast:
+roasts[
+Math.floor(
+Math.random()*roasts.length
+)
+]
+
+};
+
+storeWeekends();
+
+renderWeekends();
+
+}
+
+
+function toggleBooked(index,value){
+
+weekends[index].booked=value;
+
+storeWeekends();
+
+}
+
+
+/* ------------------------------
+   TODOS
+------------------------------ */
+
+const defaultTodos=[
+
+{
+id:"t1",
+title:"Check fresh water tanks and pump",
+machine:"TBH",
+time:30,
+cost:"free",
+notes:"Locate tank, pump, drains and verify operation.",
+done:false
+},
+
+{
+id:"t2",
+title:"Test built-in generator",
+machine:"TBH",
+time:60,
+cost:"free",
+notes:"Start, verify output and decide how much work it deserves.",
+done:false
+},
+
+{
+id:"t3",
+title:"Drain and sanitize fresh-water system",
+machine:"TBH",
+time:90,
+cost:"owned",
+notes:"Needed before MX shower duty.",
+done:false
+},
+
+{
+id:"t4",
+title:"Safety-wire prep",
+machine:"Daisy",
+time:30,
+cost:"owned",
+notes:"",
+done:false
+},
+
+{
+id:"t5",
+title:"Measure rear sag",
+machine:"Reba",
+time:30,
+cost:"owned",
+notes:"",
+done:false
+},
+
+{
+id:"t6",
+title:"Replace garage-bedroom divider",
+machine:"TBH",
+time:60,
+cost:"purchase",
+notes:"Lightweight accordion door / dust barrier.",
+done:false
+}
+
+];
+
+
+function loadTodos(){
+
+const raw=
+localStorage.getItem(TODO_KEY);
+
+if(!raw){
+
+localStorage.setItem(
+TODO_KEY,
+JSON.stringify(defaultTodos)
+);
+
+return [...defaultTodos];
+
+}
+
+try{
+return JSON.parse(raw);
+}
+
+catch{
+return [...defaultTodos];
+}
+
+}
+
+
+let todos=loadTodos();
+
+
+function storeTodos(){
+
+localStorage.setItem(
+TODO_KEY,
+JSON.stringify(todos)
+);
+
+}
+
+
+function renderTodoSnapshot(){
+
+const available=
+todos.filter(
+t=>
+!t.done &&
+t.cost!=="purchase"
+);
+
+const top=
+available.slice(0,3);
+
+document
+.getElementById("snapshotCount")
+.textContent=
+top.length
+?
+top.length+" READY NOW"
+:
+"NOTHING URGENT";
+
+
+document
+.getElementById("todoSnapshot")
+.innerHTML=
+
+top.length
+
+?
+
+top.map(t=>`
+
+<div style="
+padding:10px 0;
+border-bottom:1px solid var(--line)
+">
+
+<div class="todo-title">
+${escapeHtml(t.title)}
+</div>
+
+<div class="todo-meta">
+${escapeHtml(t.machine)}
+•
+${t.time} min
+</div>
+
+</div>
+
+`).join("")
+
+:
+
+`
+
+<div style="
+color:#777;
+font-size:11px;
+padding:15px 0
+">
+
+Nothing obvious to do.
+
+</div>
+
+`;
+
+}
+
+
+function renderTodoPage(){
+
+const open=
+todos.filter(t=>!t.done);
+
+const done=
+todos.filter(t=>t.done);
+
+
+document
+.getElementById("todoPageContent")
+.innerHTML=
+
+`
+
+<div class="todo-section-title">
+ACTIVE
+</div>
+
+<div id="sortableTodoList">
+
+${open.map(todoCard).join("")}
+
+</div>
+
+<div class="todo-section-title">
+RECENTLY COMPLETED
+</div>
+
+<div>
+
+${done.length
+?
+done.slice(-8).reverse().map(todoCard).join("")
+:
+`<div class="panel" style="color:#777;font-size:11px">
+Nothing completed yet.
+</div>`
+}
+
+</div>
+
+`;
+
+initTodoDrag();
+
+}
+
+
+function todoCard(t){
+
+return `
+
+<div class="todo-card"
+data-id="${t.id}">
+
+<div class="todo-line">
+
+<div class="drag-handle">
+☰
+</div>
+
+<div>
+
+<div class="todo-title"
+style="${t.done?'text-decoration:line-through;color:#777':''}">
+${escapeHtml(t.title)}
+</div>
+
+<div class="todo-meta">
+
+${escapeHtml(t.machine)}
+•
+${t.time} min
+•
+${costName(t.cost)}
+
+</div>
+
+${
+t.notes
+?
+`
+<div class="todo-meta">
+${escapeHtml(t.notes)}
+</div>
+`
+:
+""
+}
+
+</div>
+
+<div class="todo-badge">
+
+${costName(t.cost)}
+
+</div>
+
+</div>
+
+
+<div class="todo-actions">
+
+${
+!t.done
+
+?
+
+`
+<button class="small-btn green"
+onclick="completeTodo('${t.id}')">
+✓ COMPLETE
+</button>
+`
+
+:
+
+`
+<button class="small-btn"
+onclick="reopenTodo('${t.id}')">
+↺ REOPEN
+</button>
+`
+}
+
+<button class="small-btn"
+onclick="editTodo('${t.id}')">
+EDIT
+</button>
+
+<button class="small-btn red"
+onclick="deleteTodo('${t.id}')">
+DELETE
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+function costName(cost){
+
+return {
+free:"$0",
+owned:"PARTS OWNED",
+purchase:"BUY"
+}[cost];
+
+}
+
+
+function openTodoModal(){
+
+document
+.getElementById("todoModalTitle")
+.textContent="Add ToDo";
+
+document
+.getElementById("editTodoId")
+.value="";
+
+document
+.getElementById("todoTitleInput")
+.value="";
+
+document
+.getElementById("todoMachine")
+.value="Daisy";
+
+document
+.getElementById("todoTime")
+.value="30";
+
+document
+.getElementById("todoCost")
+.value="free";
+
+document
+.getElementById("todoNotes")
+.value="";
+
+document
+.getElementById("todoModal")
+.classList.add("show");
+
+}
+
+
+function closeTodoModal(){
+
+document
+.getElementById("todoModal")
+.classList.remove("show");
+
+}
+
+
+function saveTodo(){
+
+const title=
+document
+.getElementById("todoTitleInput")
+.value.trim();
+
+if(!title) return;
+
+
+const id=
+document
+.getElementById("editTodoId")
+.value;
+
+
+const newItem={
+
+id:
+id || "todo_"+Date.now(),
+
+title:title,
+
+machine:
+document
+.getElementById("todoMachine")
+.value,
+
+time:
+Number(
+document
+.getElementById("todoTime")
+.value
+),
+
+cost:
+document
+.getElementById("todoCost")
+.value,
+
+notes:
+document
+.getElementById("todoNotes")
+.value.trim(),
+
+done:false
+
+};
+
+
+if(id){
+
+const existing=
+todos.find(t=>t.id===id);
+
+newItem.done=
+existing
+?
+existing.done
+:
+false;
+
+
+todos=
+todos.map(
+t=>t.id===id?newItem:t
+);
+
+}
+
+else{
+
+todos.push(newItem);
+
+}
+
+
+storeTodos();
+
+closeTodoModal();
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+function editTodo(id){
+
+const t=
+todos.find(
+x=>x.id===id
+);
+
+if(!t) return;
+
+
+document
+.getElementById("todoModalTitle")
+.textContent="Edit ToDo";
+
+document
+.getElementById("editTodoId")
+.value=t.id;
+
+document
+.getElementById("todoTitleInput")
+.value=t.title;
+
+document
+.getElementById("todoMachine")
+.value=t.machine;
+
+document
+.getElementById("todoTime")
+.value=String(t.time);
+
+document
+.getElementById("todoCost")
+.value=t.cost;
+
+document
+.getElementById("todoNotes")
+.value=t.notes||"";
+
+document
+.getElementById("todoModal")
+.classList.add("show");
+
+}
+
+
+function completeTodo(id){
+
+todos=
+todos.map(
+t=>t.id===id
+?
+{...t,done:true}
+:
+t
+);
+
+storeTodos();
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+function reopenTodo(id){
+
+todos=
+todos.map(
+t=>t.id===id
+?
+{...t,done:false}
+:
+t
+);
+
+storeTodos();
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+function deleteTodo(id){
+
+todos=
+todos.filter(
+t=>t.id!==id
+);
+
+storeTodos();
+
+renderTodoPage();
+
+renderTodoSnapshot();
+
+}
+
+
+/* TOUCH / POINTER DRAG */
+
+function initTodoDrag(){
+
+const list=
+document.getElementById(
+"sortableTodoList"
+);
+
+if(!list) return;
+
+
+let dragging=null;
+
+
+list
+.querySelectorAll(".drag-handle")
+.forEach(handle=>{
+
+handle.addEventListener(
+"pointerdown",
+e=>{
+
+const card=
+handle.closest(".todo-card");
+
+dragging=card;
+
+card.classList.add("dragging");
+
+handle.setPointerCapture(
+e.pointerId
+);
+
+}
+);
+
+
+handle.addEventListener(
+"pointermove",
+e=>{
+
+if(!dragging) return;
+
+
+const target=
+document
+.elementFromPoint(
+e.clientX,
+e.clientY
+)
+?.closest(".todo-card");
+
+
+if(
+target &&
+target!==dragging &&
+target.parentElement===list
+){
+
+const rect=
+target.getBoundingClientRect();
+
+const before=
+e.clientY <
+rect.top+
+rect.height/2;
+
+
+if(before){
+
+list.insertBefore(
+dragging,
+target
+);
+
+}
+
+else{
+
+list.insertBefore(
+dragging,
+target.nextSibling
+);
+
+}
+
+}
+
+}
+);
+
+
+handle.addEventListener(
+"pointerup",
+()=>{
+
+if(!dragging) return;
+
+dragging.classList.remove(
+"dragging"
+);
+
+dragging=null;
+
+saveTodoOrder();
+
+}
+);
+
+});
+
+}
+
+
+function saveTodoOrder(){
+
+const activeIds=
+Array.from(
+document.querySelectorAll(
+"#sortableTodoList .todo-card"
+)
+)
+.map(el=>el.dataset.id);
+
+
+const completed=
+todos.filter(t=>t.done);
+
+
+const reordered=
+activeIds
+.map(id=>
+todos.find(t=>t.id===id)
+)
+.filter(Boolean);
+
+
+todos=[
+...reordered,
+...completed
+];
+
+
+storeTodos();
+
+renderTodoSnapshot();
+
+}
+
+
+/* ------------------------------
+   BIKES
+------------------------------ */
+
+const bikes={
+
+daisy:{
+
+name:"DAISY",
+
+model:
+"2024 KTM 990 DUKE • TRACK ONLY",
+
+image:
+"images/daisy.png",
+
+color:
+"#ff5a00",
+
+stats:[
+["1:38","HALLETT BEST"],
+["#4","BAR POSITION"],
+["3RD","FORK GROOVE"]
+]
+
+},
+
+
+reba:{
+
+name:"REBA",
+
+model:
+"2025 KTM 500 EXC-F CHAMPIONSHIP EDITION",
+
+image:
+"images/reba.png",
+
+color:
+"#2478ff",
+
+stats:[
+["~20 MI","SINCE OIL"],
+["110 MM","SAG TARGET"],
+["DOT","TRAIL SETUP"]
+]
+
+},
+
+
+sue:{
+
+name:"SUE",
+
+model:
+"2020 TREK FUEL EX 8",
+
+image:
+"images/sue.png",
+
+color:
+"#a34bff",
+
+stats:[
+["29","WHEEL SIZE"],
+["140 MM","FORK TRAVEL"],
+["OZ","NEXT PARK"]
+]
+
+}
+
+};
+
+
+function openBike(name){
+
+currentBike=name;
+
+const b=bikes[name];
+
+document
+.getElementById("bikeTitle")
+.textContent=b.name;
+
+document
+.getElementById("detailName")
+.textContent=b.name;
+
+document
+.getElementById("detailName")
+.style.color=b.color;
+
+document
+.getElementById("detailModel")
+.textContent=b.model;
+
+document
+.getElementById("bikeImage")
+.src=b.image;
+
+
+for(let i=0;i<3;i++){
+
+document
+.getElementById("stat"+(i+1))
+.textContent=b.stats[i][0];
+
+document
+.getElementById("stat"+(i+1)+"label")
+.textContent=b.stats[i][1];
+
+}
+
+
+showPage("bikeDetail");
+
+bikeSection("maintenance");
+
+}
+
+
+function bikeSection(section){
+
+if(section==="maintenance"){
+renderMaintenance();
+}
+
+if(section==="mods"){
+renderSetup();
+}
+
+if(section==="tires"){
+renderTires();
+}
+
+if(section==="specs"){
+renderSpecs();
+}
+
+if(section==="checklist"){
+renderBikeChecklist();
+}
+
+}
+
+
+/* MAINTENANCE */
+
+function renderMaintenance(){
+
+let html="";
+
+
+if(currentBike==="daisy"){
+
+html=`
+
+<div class="panel">
+
+<h3>Daisy Maintenance</h3>
+
+<div class="row">
+<strong>Engine Oil</strong>
+<span>TRACK INTERVAL</span>
+</div>
+
+<div class="row">
+<strong>Chain</strong>
+<span class="green">MONITOR</span>
+</div>
+
+<div class="row">
+<strong>Brake Pads</strong>
+<span class="green">MONITOR</span>
+</div>
+
+<div class="row">
+<strong>Brake Fluid</strong>
+<span>TRACK SERVICE</span>
+</div>
+
+<div class="row">
+<strong>Fork / Shock</strong>
+<span>TRACK HOURS</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(currentBike==="reba"){
+
+html=`
+
+<div class="panel">
+
+<h3>Reba Maintenance</h3>
+
+<div class="row">
+<strong>Engine Oil</strong>
+<span>TRACK HOURS / MILES</span>
+</div>
+
+<div class="row">
+<strong>Air Filter</strong>
+<span>AFTER DUSTY RIDES</span>
+</div>
+
+<div class="row">
+<strong>Chain</strong>
+<span>INSPECT / LUBE</span>
+</div>
+
+<div class="row">
+<strong>Spokes</strong>
+<span>INSPECT</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(currentBike==="sue"){
+
+html=`
+
+<div class="panel">
+
+<h3>Sue Maintenance</h3>
+
+<div class="row">
+<strong>Tubeless Sealant</strong>
+<span>TRACK AGE</span>
+</div>
+
+<div class="row">
+<strong>Brake Pads</strong>
+<span>INSPECT</span>
+</div>
+
+<div class="row">
+<strong>Fork Service</strong>
+<span>TRACK HOURS</span>
+</div>
+
+<div class="row">
+<strong>Shock Service</strong>
+<span>TRACK HOURS</span>
+</div>
+
+<div class="row">
+<strong>Chain / Drivetrain</strong>
+<span>INSPECT</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+document
+.getElementById("bikeContent")
+.innerHTML=html;
+
+}
+
+
+/* SETUP */
+
+function renderSetup(){
+
+let html="";
+
+
+if(currentBike==="daisy"){
+
+html=`
+
+<div class="panel">
+
+<h3>Current Track Setup</h3>
+
+<div class="row">
+<strong>Handlebar position</strong>
+<span class="orange">#4 — FULL FORWARD</span>
+</div>
+
+<div class="row">
+<strong>Fork height</strong>
+<span class="orange">3RD GROOVE</span>
+</div>
+
+<div class="row">
+<strong>KTM baseline fork height</strong>
+<span>2ND GROOVE</span>
+</div>
+
+<div class="row">
+<strong>Headlight</strong>
+<span class="green">REMOVED</span>
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h3>Planned</h3>
+
+<div class="row">
+<strong>WP APEX suspension</strong>
+<span>WINTER</span>
+</div>
+
+<div class="row">
+<strong>Austin Racing exhaust + tune</strong>
+<span>FUTURE</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(currentBike==="reba"){
+
+html=`
+
+<div class="panel">
+
+<h3>Trail Setup</h3>
+
+<div class="row">
+<strong>Rear rider sag target</strong>
+<span class="blue">110 MM</span>
+</div>
+
+<div class="row">
+<strong>Compact controls</strong>
+<span class="green">INSTALLED</span>
+</div>
+
+<div class="row">
+<strong>Full clutch lever</strong>
+<span class="green">INSTALLED</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(currentBike==="sue"){
+
+html=`
+
+<div class="panel">
+
+<h3>MTB Setup</h3>
+
+<div class="row">
+<strong>Fork</strong>
+<span>FOX RHYTHM 34</span>
+</div>
+
+<div class="row">
+<strong>Fork travel</strong>
+<span>140 MM</span>
+</div>
+
+<div class="row">
+<strong>Shock</strong>
+<span>FOX FLOAT EVOL</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+document
+.getElementById("bikeContent")
+.innerHTML=html;
+
+}
+
+
+/* TIRES */
+
+function renderTires(){
+
+let html="";
+
+
+if(currentBike==="daisy"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+<strong>Current</strong>
+<span>BRIDGESTONE S22</span>
+</div>
+
+<div class="row">
+<strong>Next</strong>
+<span class="orange">MICHELIN POWER CUP 2</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(currentBike==="reba"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+<strong>Use</strong>
+<span>AGGRESSIVE DOT / OFF ROAD</span>
+</div>
+
+<div class="row">
+<strong>Future option</strong>
+<span>MOTOZ ENDURO I/T</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+if(currentBike==="sue"){
+
+html=`
+
+<div class="panel">
+
+<div class="row">
+<strong>Wheel size</strong>
+<span>29"</span>
+</div>
+
+<div class="row">
+<strong>Setup</strong>
+<span>TUBELESS</span>
+</div>
+
+</div>
+
+`;
+
+}
+
+
+document
+.getElementById("bikeContent")
+.innerHTML=html;
+
+}
+
+
+/* QUICK SPECS */
+
+function renderSpecs(){
+
+let html="";
+
+
+if(currentBike==="daisy"){
+
+html=specPanel([
+
+["COMMON","Oil specification","SEE KTM MANUAL"],
+["COMMON","Oil filter","VERIFY KTM PART NUMBER"],
+["COMMON","Front tire","120/70 ZR17"],
+["COMMON","Rear tire","180/55 ZR17"],
+["CHASSIS","Handlebar position","#4 FULL FORWARD"],
+["CHASSIS","Fork position","3RD GROOVE"],
+["CHASSIS","KTM fork baseline","2ND GROOVE"],
+["CHASSIS","Front suspension","WP APEX"],
+["ORDER","Next tire","MICHELIN POWER CUP 2"]
+
 ]);
-function openTodo(id=null){
- const t=id?todos.find(x=>x.id===id):{title:'',machine:'MotoHQ',time:20,cost:'free',priority:'normal',notes:'',done:false};
- modal(id?'Edit ToDo':'Add My ToDo',`
- <div class="field"><label>What do you want to do?</label><input id="tdtitle" value="${esc(t.title)}" placeholder="Do a bike thing after work"></div>
- <div class="field"><label>Bike / Area</label><select id="tdmachine">${['Daisy','Reba','Sue','MotoHQ','General'].map(x=>`<option ${x===t.machine?'selected':''}>${x}</option>`).join('')}</select></div>
- <div class="field"><label>Time</label><select id="tdtime">${[10,20,30,60,90].map(x=>`<option value="${x}" ${x===t.time?'selected':''}>${x}${x===90?'+':''} min</option>`).join('')}</select></div>
- <div class="field"><label>Parts / Cost</label><select id="tdcost"><option value="free" ${t.cost==='free'?'selected':''}>No purchase needed</option><option value="owned" ${t.cost==='owned'?'selected':''}>Parts already owned</option><option value="purchase" ${t.cost==='purchase'?'selected':''}>Purchase needed</option></select></div>
- <div class="field"><label>Priority</label><select id="tdpriority">${['high','normal','someday'].map(x=>`<option ${x===t.priority?'selected':''}>${x}</option>`).join('')}</select></div>
- <div class="field"><label>Notes</label><textarea id="tdnotes">${esc(t.notes)}</textarea></div>`,()=>{
-   const title=$('tdtitle').value.trim();if(!title)return;
-   const obj={id:id||uid(),title,machine:$('tdmachine').value,time:Number($('tdtime').value),cost:$('tdcost').value,priority:$('tdpriority').value,notes:$('tdnotes').value.trim(),done:t.done};
-   if(id)todos=todos.map(x=>x.id===id?obj:x);else todos.push(obj);
-   store('todos',todos);closeModal();renderTodos();renderSnapshot();
- });
-}
-function todoColor(m){return m==='Daisy'?'#ff5a00':m==='Reba'?'#2478ff':m==='Sue'?'#a34bff':'#35d36b'}
-function todoHTML(t,full=false){
- return `<div class="list-item"><div class="todo-line"><span class="dot" style="background:${todoColor(t.machine)}"></span><div>
- <div class="todo-title" style="${t.done?'text-decoration:line-through;color:#777':''}">${esc(t.title)}</div>
- <div class="todo-meta">${esc(t.machine)} • ${t.time} min • ${esc(t.priority)}${t.notes?' • '+esc(t.notes):''}</div></div>
- <span class="badge">${t.cost==='free'?'$0':t.cost==='owned'?'OWNED':'BUY'}</span></div>
- ${full?`<div class="actions">${!t.done?`<button class="mini-btn done" onclick="toggleTodo('${t.id}',true)">✓ DONE</button>`:`<button class="mini-btn" onclick="toggleTodo('${t.id}',false)">REOPEN</button>`}
- <button class="mini-btn" onclick="openTodo('${t.id}')">EDIT</button><button class="mini-btn delete" onclick="deleteTodo('${t.id}')">DELETE</button></div>`:''}</div>`;
-}
-function renderSnapshot(){
- const x=todos.filter(t=>!t.done&&t.cost!=='purchase'&&t.time<=30).sort((a,b)=>(a.priority==='high'?-1:0)-(b.priority==='high'?-1:0)).slice(0,3);
- $('snapshotCount').textContent=x.length?`${x.length} READY NOW`:'CLEAR';
- $('todoSnapshot').innerHTML=x.length?x.map(t=>todoHTML(t)).join(''):'<div class="empty">Nothing urgent. Ride something.</div>';
-}
-function renderTodos(){
- const open=todos.filter(x=>!x.done),done=todos.filter(x=>x.done);
- $('todoPage').innerHTML=`<div class="list-head"><h3>Open</h3><button class="add-btn" onclick="openTodo()">+ ADD</button></div><div class="panel">${open.length?open.map(x=>todoHTML(x,true)).join(''):'<div class="empty">Nothing here.</div>'}</div>
- <div class="list-head"><h3>Completed</h3><button class="add-btn" onclick="openTodo()">+ ADD</button></div><div class="panel">${done.length?done.map(x=>todoHTML(x,true)).join(''):'<div class="empty">Nothing here.</div>'}</div>`;
-}
-function toggleTodo(id,v){todos=todos.map(x=>x.id===id?{...x,done:v}:x);store('todos',todos);renderTodos();renderSnapshot()}
-function deleteTodo(id){if(!confirm('Delete this ToDo?'))return;todos=todos.filter(x=>x.id!==id);store('todos',todos);renderTodos();renderSnapshot()}
 
-/* =========================================================
-   GENERIC EDITABLE LISTS — EVERYTHING GETS + ADD
-========================================================= */
-const listNames={shopping:'Shopping List',inventory:'Parts Inventory',gpx:'GPX Ride Library',manuals:'Manuals & Documents',events:'Events',repairs:'MotoHQ Repairs / Projects',
- mods_daisy:'Daisy Mods / Setup',mods_reba:'Reba Mods / Setup',mods_sue:'Sue Mods / Setup',tires_reba:'Reba Tire Notes',tires_sue:'Sue Tire Notes'};
-let lists=load('lists',{
- shopping:[
-  {id:uid(),title:'Rabaconda tire changer',meta:'MotoHQ • Priority'},
-  {id:uid(),title:'Bench vise',meta:'MotoHQ'},
-  {id:uid(),title:'Brake bleeder',meta:'MotoHQ'},
-  {id:uid(),title:'Drill press',meta:'MotoHQ'}
- ],
- inventory:[
-  {id:uid(),title:'Brake pads',meta:'In stock'},
-  {id:uid(),title:'Motor oil',meta:'In stock'},
-  {id:uid(),title:'Brake fluid',meta:'In stock'},
-  {id:uid(),title:'Safety wire',meta:'In stock'}
- ],
- gpx:[
-  {id:uid(),title:'Mill Creek',meta:'Ridden'},
-  {id:uid(),title:'White Rock Ridge',meta:'Planned'},
-  {id:uid(),title:'Wolf Pen Gap',meta:'Planned'}
- ],
- manuals:[],
- events:[
-  {id:uid(),title:'Hallett Trackday',meta:'Daisy • Trackday'},
-  {id:uid(),title:'OZ Bike Park',meta:'Sue • MTB'}
- ],
- repairs:[
-  {id:uid(),title:'Generator load test',meta:'Do soon'},
-  {id:uid(),title:'TV relocation',meta:'Planned'},
-  {id:uid(),title:'Adventure photo board',meta:'Planned'}
- ],
- mods_daisy:[
-  {id:uid(),title:'RaceBox Mini S',meta:'Ordered'},
-  {id:uid(),title:'MG Biketec rearsets',meta:'Planned'}
- ],
- mods_reba:[
-  {id:uid(),title:'DOT grippy tires',meta:'Planned'}
- ],
- mods_sue:[]
-});
-function saveLists(){store('lists',lists)}
-function genericItem(type,x){
- return `<div class="list-item"><div class="list-top"><div><div class="list-title">${esc(x.title)}</div><div class="list-meta">${esc(x.meta||'')}</div></div></div>
- <div class="actions"><button class="mini-btn" onclick="addGeneric('${type}','${x.id}')">EDIT</button><button class="mini-btn delete" onclick="deleteGeneric('${type}','${x.id}')">DELETE</button></div></div>`;
-}
-function addGeneric(type,id=null){
- if(!lists[type])lists[type]=[];
- const x=id?lists[type].find(a=>a.id===id):{title:'',meta:''};
- modal(`${id?'Edit':'Add'} — ${listNames[type]||'List Item'}`,`
- <div class="field"><label>Item / Name</label><input id="gtitle" value="${esc(x.title)}"></div>
- <div class="field"><label>Details / Notes</label><textarea id="gmeta">${esc(x.meta)}</textarea></div>`,()=>{
-  const title=$('gtitle').value.trim();if(!title)return;
-  const obj={id:id||uid(),title,meta:$('gmeta').value.trim()};
-  if(id)lists[type]=lists[type].map(a=>a.id===id?obj:a);else lists[type].push(obj);
-  saveLists();closeModal();refreshGeneric(type);
- });
-}
-function deleteGeneric(type,id){if(!confirm('Delete this item?'))return;lists[type]=lists[type].filter(x=>x.id!==id);saveLists();refreshGeneric(type)}
-function refreshGeneric(type){
- if(type==='events')renderEvents();
- else if(type==='repairs')renderRepairs();
- else if(type.startsWith('mods_'))renderBikeList('mods');
- else if(type.startsWith('tires_'))bikeSection('tires');
- else openListPage(type);
-}
-function openListPage(type){
- previousPage=document.querySelector('.page.active')?.id||'more';
- $('infoTitle').textContent=listNames[type]||type;
- const x=lists[type]||[];
- $('infoContent').innerHTML=`<div class="list-head"><h3>${listNames[type]||'Items'}</h3><button class="add-btn" onclick="addGeneric('${type}')">+ ADD</button></div>
- <div class="panel">${x.length?x.map(a=>genericItem(type,a)).join(''):'<div class="empty">Nothing here yet. Add something.</div>'}</div>`;
- showPage('info');
-}
-function renderEvents(){
- const x=lists.events||[];$('eventList').innerHTML=x.length?x.map(a=>`<div class="panel">${genericItem('events',a)}</div>`).join(''):'<div class="panel empty">No events yet.</div>';
-}
-function renderRepairs(){
- const x=lists.repairs||[];$('repairList').innerHTML=x.length?x.map(a=>genericItem('repairs',a)).join(''):'<div class="empty">No repairs.</div>';
-}
-function renderBikeList(){
- const type='mods_'+currentBike,x=lists[type]||[];
- $('bikeContent').innerHTML=`<div class="list-head"><h3>${bikes[currentBike].name} Mods / Setup</h3><button class="add-btn" onclick="addGeneric('${type}')">+ ADD</button></div>
- <div class="panel">${x.length?x.map(a=>genericItem(type,a)).join(''):'<div class="empty">Nothing yet.</div>'}</div>`;
 }
 
-/* =========================================================
-   CHECKLISTS — ADDABLE
-========================================================= */
-let checklists=load('checklists',{
- daisy:['Helmet','Leathers','Back protector','Gloves','Boots','Sweatband','Fuel','Oil level','Coolant','Brake pads','Chain / tension','Tires / pressures','Stands','RaceBox Mini S','Cameras','Water / electrolytes'],
- reba:['Helmet','Goggles','Gloves','Shirt / jersey','Pants','Socks','Boots','Hydration','Fuel','Oil','Coolant','Air filter','Tires','Chain','Brakes','Spokes','Navigation / GPX','Trail tools'],
- sue:['Full-face helmet','Gloves','Riding gear','MTB shoes','Protection / pads','Hydration','Tire pressure','Brakes','Chain / drivetrain','Suspension','Axles / cockpit','Pump / repair kit']
-});
-let checkState=load('checkstate',{});
-function openChecklist(k){
- previousPage='info';$('infoTitle').textContent=`${bikes[k].name} — ${k==='daisy'?'Trackday':'Ride'} Checklist`;
- const arr=checklists[k]||[];
- $('infoContent').innerHTML=`<div class="list-head"><h3>Checklist</h3><button class="add-btn" onclick="addChecklistItem('${k}')">+ ADD</button></div>
- <div class="panel">${arr.map((x,i)=>`<div class="row"><label style="font-size:12px"><input type="checkbox" ${checkState[k+'_'+i]?'checked':''} onchange="checkState['${k}_${i}']=this.checked;store('checkstate',checkState)"> ${esc(x)}</label>
- <button class="mini-btn delete" onclick="deleteChecklistItem('${k}',${i})">DELETE</button></div>`).join('')}</div>
- <button class="mini-btn" onclick="resetChecklist('${k}')">RESET CHECKS</button>`;
- showPage('info');
-}
-function addChecklistItem(k){
- modal('Add Checklist Item',`<div class="field"><label>Item</label><input id="ci"></div>`,()=>{const x=$('ci').value.trim();if(!x)return;checklists[k].push(x);store('checklists',checklists);closeModal();openChecklist(k)})
-}
-function deleteChecklistItem(k,i){checklists[k].splice(i,1);store('checklists',checklists);openChecklist(k)}
-function resetChecklist(k){Object.keys(checkState).filter(x=>x.startsWith(k+'_')).forEach(x=>delete checkState[x]);store('checkstate',checkState);openChecklist(k)}
 
-/* =========================================================
-   SIMPLE PAGES
-========================================================= */
-function openSimple(type){
- previousPage=document.querySelector('.page.active')?.id||'hub';
- if(type==='maintenance'){
-  $('infoTitle').textContent='Combined Maintenance';
-  const d=maint.daisy.oilTrackdays;
-  $('infoContent').innerHTML=`<div class="panel"><h3>Current Counters</h3>
-  <div class="row"><strong>Daisy oil</strong><span class="${d>=3?'red':d===2?'yellow':'green'}">${d} / 3 TRACKDAYS</span></div>
-  <div class="row"><strong>Daisy current tire</strong><span>${maint.daisy.tireTrackdays} TRACKDAYS</span></div>
-  <div class="row"><strong>Reba oil</strong><span>~${Math.round(maint.reba.oilMiles)} MI • ${maint.reba.oilHours.toFixed(1)} H</span></div>
-  <div class="row"><strong>Sue logged usage</strong><span>${Math.round(maint.sue.totalMiles)} MI • ${maint.sue.totalHours.toFixed(1)} H</span></div></div>
-  <div class="panel"><h3>Worth Inspecting Soon</h3>
-  <div class="row"><strong>Daisy</strong><span class="yellow">CHAIN • TIRES • BRAKES • FASTENERS</span></div>
-  <div class="row"><strong>Reba</strong><span class="yellow">AIR FILTER • CHAIN • SPOKES</span></div>
-  <p class="note">Usage counters drive service status. Normal elapsed time alone does not prove a usage-based service is due.</p></div>`;
- }else if(type==='checklists'){
-  $('infoTitle').textContent='Ride Checklists';
-  $('infoContent').innerHTML=`<div class="panel">
-  <div class="row" onclick="openChecklist('daisy')"><strong>🏁 Daisy — Trackday Prep</strong><span>›</span></div>
-  <div class="row" onclick="openChecklist('reba')"><strong>🏍️ Reba — Trail Ride</strong><span>›</span></div>
-  <div class="row" onclick="openChecklist('sue')"><strong>🚵 Sue — MTB / Trail</strong><span>›</span></div></div>`;
- }else if(type==='settings'){
-  $('infoTitle').textContent='Settings';
-  $('infoContent').innerHTML=`<div class="panel"><h3>MotoHQ — The Hub</h3>
-  <div class="row"><strong>Version</strong><span class="orange">V6</span></div>
-  <div class="row"><strong>Daisy</strong><span>daisy.png</span></div>
-  <div class="row"><strong>Reba</strong><span>reba.png</span></div>
-  <div class="row"><strong>Sue</strong><span>sue.png</span></div>
-  <div class="row"><strong>Data storage</strong><span>LOCAL BROWSER</span></div>
-  <p class="note">Ride reports, ToDos, editable lists, weekend planning, maintenance counters and checklist changes are saved in this browser.</p></div>`;
- }
- showPage('info');
+if(currentBike==="reba"){
+
+html=specPanel([
+
+["COMMON","Oil specification","VERIFY KTM MANUAL"],
+["COMMON","Oil filter","VERIFY KTM PART NUMBER"],
+["COMMON","Front wheel","21 IN"],
+["COMMON","Rear wheel","18 IN"],
+["CHASSIS","Rider sag target","110 MM"],
+["ORDER","Future tire","MOTOZ ENDURO I/T"],
+["ORDER","Air filter","VERIFY PART NUMBER"],
+["ORDER","Brake pads","VERIFY PART NUMBER"]
+
+]);
+
 }
 
-/* ALL RIDE HISTORY */
-function openAllRides(){
- $('infoTitle').textContent='All Ride Reports';
- $('infoContent').innerHTML=`<div class="list-head"><h3>Ride History</h3><button class="add-btn" onclick="openRideChooser()">+ ADD</button></div>
- <div class="panel">${rides.length?rides.map(rideCard).join(''):'<div class="empty">No ride reports yet.</div>'}</div>`;
- showPage('info');
-}
-function openRideChooser(){
- modal('Add Ride Report',`<div class="field"><label>Bike</label><select id="choosebike"><option value="daisy">Daisy — Trackday</option><option value="reba">Reba — Trail</option><option value="sue">Sue — MTB / Trail</option></select></div>`,()=>{currentBike=$('choosebike').value;closeModal();openRideReport()});
-}
-const oldOpenListPage=openListPage;
-openListPage=function(type){if(type==='ridehistory'){previousPage='more';openAllRides();return}oldOpenListPage(type)};
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
-renderWeekends();renderSnapshot();renderEvents();renderRepairs();
+if(currentBike==="sue"){
+
+html=specPanel([
+
+["COMMON","Wheel size","29 IN"],
+["COMMON","Tire width","2.60 IN STOCK"],
+["SUSPENSION","Fork","FOX RHYTHM 34"],
+["SUSPENSION","Fork travel","140 MM"],
+["SUSPENSION","Shock","FOX FLOAT EVOL RE:AKTIV"],
+["SUSPENSION","Shock size","210 x 55 MM"],
+["DRIVETRAIN","Drivetrain","SRAM GX EAGLE 12 SPEED"],
+["BRAKES","Brakes","SHIMANO DEORE M6000"]
+
+]);
+
+}
+
+
+document
+.getElementById("bikeContent")
+.innerHTML=html;
+
+}
+
+
+function specPanel(rows){
+
+let lastGroup="";
+
+return `
+
+<div class="panel">
+
+${rows.map(row=>{
+
+let group="";
+
+if(row[0]!==lastGroup){
+
+lastGroup=row[0];
+
+group=`
+<div class="spec-title">
+${row[0]}
+</div>
+`;
+
+}
+
+return `
+
+${group}
+
+<div class="spec-row">
+
+<div class="spec-label">
+${row[1]}
+</div>
+
+<div class="spec-value">
+${row[2]}
+</div>
+
+<button class="copy-btn"
+onclick="copySpec('${escapeJs(row[2])}')">
+COPY
+</button>
+
+</div>
+
+`;
+
+}).join("")}
+
+<p style="
+color:#777;
+font-size:9px;
+line-height:1.4;
+margin-top:14px
+">
+
+V6 intentionally leaves unverified service part numbers marked VERIFY
+instead of inventing them. Once the manuals are loaded, those become exact
+order-ready values.
+
+</p>
+
+</div>
+
+`;
+
+}
+
+
+function copySpec(value){
+
+navigator.clipboard?.writeText(value);
+
+}
+
+
+/* CHECKLISTS */
+
+const bikeChecklists={
+
+daisy:[
+
+"Helmet",
+"Suit",
+"Back protector",
+"Gloves",
+"Boots",
+"Undersuit / base layer",
+"Sweatband",
+"RaceBox Mini S",
+"Charge RaceBox",
+"GoPro / camera",
+"Tire gauge",
+"Tire warmers",
+"Front stand",
+"Rear stand",
+"Extension cords",
+"Fuel",
+"Oil / fluids",
+"Brake pads",
+"Safety wire",
+"Zip ties",
+"Post-track chain clean / lube"
+
+],
+
+
+reba:[
+
+"Helmet",
+"Goggles",
+"Gloves",
+"Jersey",
+"Riding pants",
+"Boots",
+"Long socks",
+"Sweatband",
+"Hydration",
+"Phone",
+"Gaia / GPX offline",
+"Basic trail tools",
+"Tire repair",
+"Air / pump",
+"Water",
+"Snacks",
+"GoPro",
+"Check fuel",
+"Check chain",
+"Check air filter"
+
+],
+
+
+sue:[
+
+"Full-face helmet",
+"Gloves",
+"Riding shirt",
+"Riding shorts / pants",
+"Impact pants",
+"Socks",
+"Shoes",
+"Sweatband",
+"Water",
+"Snacks",
+"Phone",
+"Pump",
+"Tubeless repair kit",
+"Spare tube",
+"Tire levers",
+"Multi-tool",
+"GoPro",
+"Check tire pressure",
+"Check brakes",
+"Check suspension"
+
+]
+
+};
+
+
+function renderBikeChecklist(){
+
+const list=
+bikeChecklists[currentBike];
+
+const key=
+CHECK_KEY+"_"+currentBike;
+
+let state={};
+
+try{
+
+state=
+JSON.parse(
+localStorage.getItem(key)
+)||{};
+
+}
+
+catch{
+state={};
+}
+
+
+document
+.getElementById("bikeContent")
+.innerHTML=
+
+`
+
+<div class="panel">
+
+<h3>
+${currentBike==="daisy"
+?"Trackday Prep"
+:"Trail / Ride Checklist"
+}
+</h3>
+
+${list.map((item,i)=>`
+
+<label class="check-row">
+
+<input
+type="checkbox"
+${state[i]?"checked":""}
+onchange="
+saveCheck(
+'${currentBike}',
+${i},
+this.checked
+)
+">
+
+<span class="check-text">
+${item}
+</span>
+
+</label>
+
+`).join("")}
+
+</div>
+
+`;
+
+}
+
+
+function saveCheck(bike,index,value){
+
+const key=
+CHECK_KEY+"_"+bike;
+
+let state={};
+
+try{
+
+state=
+JSON.parse(
+localStorage.getItem(key)
+)||{};
+
+}
+
+catch{
+state={};
+}
+
+state[index]=value;
+
+localStorage.setItem(
+key,
+JSON.stringify(state)
+);
+
+}
+
+
+/* ------------------------------
+   HELPERS
+------------------------------ */
+
+function escapeHtml(value){
+
+return String(value)
+.replace(
+/[&<>"']/g,
+m=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[m])
+);
+
+}
+
+
+function escapeJs(value){
+
+return String(value)
+.replace(/\\/g,"\\\\")
+.replace(/'/g,"\\'");
+
+}
+
+
+/* START */
+
+renderSoundToggle();
+renderWeekends();
+renderTodoSnapshot();
+
 </script>
+
 </body>
 </html>
